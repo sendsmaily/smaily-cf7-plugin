@@ -44,7 +44,7 @@ All development for Smaily for Contact Form 7 is [handled via GitHub](https://gi
 
 == Installation ==
 
-1. Upload or extract the `smaily-for-contact-form-7` folder to your site's `/wp-content/plugins/` directory. You can also use the **Add new** - option found in the **Plugins** - menu in WordPress.
+1. Upload or extract the `smaily-cf7-plugin` folder to your site's `/wp-content/plugins/` directory. You can also use the **Add new** - option found in the **Plugins** - menu in WordPress.
 2. Activate the plugin from the *Plugins- menu in WordPress.
 
 = Usage =
