@@ -61,7 +61,8 @@ All development for Smaily for Contact Form 7 is [handled via GitHub](https://gi
 
 == Screenshots ==
 
-1. TODO
+1. Smaily configuration for form.
+2. Example form included in plugin.
 
 == Changelog ==
 
