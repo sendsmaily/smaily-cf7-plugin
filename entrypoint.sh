@@ -280,6 +280,7 @@ EOPHP
 		unset "$e"
 	done
 fi
+# Install Contact Form 7
 FILE=/var/www/html/wp-content/plugins/contact-form-7/wp-contact-form-7.php
 if [ -f "$FILE" ]; then
     echo "Contact Form 7 found"
@@ -289,5 +290,16 @@ else
 	unzip contact-form-7.5.1.6.zip
 	mv contact-form-7 /var/www/html/wp-content/plugins
 	rm contact-form-7.5.1.6.zip
+fi
+# Install Really Simple Captcha for Contact Form 7
+FILE=/var/www/html/wp-content/plugins/really-simple-captcha/really-simple-captcha.php
+if [ -f "$FILE" ]; then
+    echo "Reallly Simple Captcha found"
+else
+    echo "$FILE does not exist. Installing Really Simple Captcha"
+	wget https://downloads.wordpress.org/plugin/really-simple-captcha.zip
+	unzip really-simple-captcha.zip
+	mv really-simple-captcha /var/www/html/wp-content/plugins
+	rm really-simple-captcha.zip
 fi
 exec "$@"
