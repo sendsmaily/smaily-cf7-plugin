@@ -5,7 +5,8 @@
  * @link       https://github.com/sendsmaily/smaily-cf7-plugin
  * @since      1.0.0
  *
- * @package    smaily_for_cf7
+ * @package    Smaily_For_CF7
+ * @author     Smaily
  */
 
 // If uninstall not called from WordPress, then exit.

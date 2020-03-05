@@ -10,6 +10,7 @@
  *
  * @package    Smaily_For_CF7
  * @subpackage Smaily_For_CF7/includes
+ * @author     Smaily
  */
 
 /**

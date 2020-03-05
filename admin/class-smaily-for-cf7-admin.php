@@ -5,15 +5,16 @@
  * @link       https://github.com/sendsmaily/smaily-cf7-plugin
  * @since      1.0.0
  *
- * @package    smaily_for_cf7
- * @subpackage smaily_for_cf7/admin
+ * @package    Smaily_For_CF7
+ * @subpackage Smaily_For_CF7/admin
+ * @author     Smaily
  */
 
 /**
  * The admin-specific functionality of the plugin.
  *
- * @package    smaily_for_cf7
- * @subpackage smaily_for_cf7/admin
+ * @package    Smaily_For_CF7
+ * @subpackage Smaily_For_CF7/admin
  */
 class Smaily_For_CF7_Admin {
 

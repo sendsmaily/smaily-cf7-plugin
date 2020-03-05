@@ -5,8 +5,9 @@
  * @link       https://github.com/sendsmaily/smaily-cf7-plugin
  * @since      1.0.0
  *
- * @package    smaily_for_cf7
- * @subpackage smaily_for_cf7/includes
+ * @package    Smaily_For_CF7
+ * @subpackage Smaily_For_CF7/includes
+ * @author     Smaily
  */
 
 /**
@@ -16,8 +17,8 @@
  * the plugin, and register them with the WordPress API. Call the
  * run function to execute the list of actions and filters.
  *
- * @package    smaily_for_cf7
- * @subpackage smaily_for_cf7/includes
+ * @package    Smaily_For_CF7
+ * @subpackage Smaily_For_CF7/includes
  */
 class Smaily_For_CF7_Loader {
 

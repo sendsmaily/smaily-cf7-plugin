@@ -3,6 +3,7 @@
  * Content of Smaily for Contact Form 7 tab.
  *
  * @package Smaily for Contact Form 7
+ * @author  Smaily
  */
 
 ?>

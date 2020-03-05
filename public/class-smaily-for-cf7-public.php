@@ -5,8 +5,9 @@
  * @link       https://github.com/sendsmaily/smaily-cf7-plugin
  * @since      1.0.0
  *
- * @package    smaily_for_cf7
- * @subpackage smaily_for_cf7/public
+ * @package    Smaily_For_CF7
+ * @subpackage Smaily_For_CF7/public
+ * @author     Smaily
  */
 
 /**
@@ -14,9 +15,8 @@
  *
  * Defines the plugin name, version, and public hooks.
  *
- * @package    smaily_for_cf7
- * @subpackage smaily_for_cf7/public
- * @author     Tom <tom@smaily.com>
+ * @package    Smaily_For_CF7
+ * @subpackage Smaily_For_CF7/public
  */
 class Smaily_For_CF7_Public {
 
