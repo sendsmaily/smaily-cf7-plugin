@@ -12,4 +12,8 @@
 if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
-// TODO Delete all created options with wp_load_alloptions().
+foreach ( wp_load_alloptions() as $option => $value ) {
+	if ( strpos( $option, 'smailyforcf7_' ) === 0 ) {
+		delete_option( $option );
+	}
+}
