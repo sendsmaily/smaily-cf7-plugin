@@ -2,7 +2,7 @@
 /**
  * The public-facing functionality of the plugin.
  *
- * @link       http://smaily.com
+ * @link       https://github.com/sendsmaily/smaily-cf7-plugin
  * @since      1.0.0
  *
  * @package    smaily_for_cf7
