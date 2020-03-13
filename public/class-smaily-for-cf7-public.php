@@ -39,6 +39,15 @@ class Smaily_For_CF7_Public {
 	private $version;
 
 	/**
+	 * The transliterator instance.
+	 *
+	 * @since    1.0.0
+	 * @access   public
+	 * @var      Transliterator    $transliterator    The transliterator instance.
+	 */
+	private $transliterator;
+
+	/**
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
@@ -48,7 +57,7 @@ class Smaily_For_CF7_Public {
 	public function __construct( $plugin_name, $version ) {
 		$this->smaily_for_cf7 = $plugin_name;
 		$this->version        = $version;
-
+		$this->transliterator = Transliterator::create( 'Any-Latin; Latin-ASCII' );
 	}
 
 	/**
@@ -199,7 +208,7 @@ class Smaily_For_CF7_Public {
 	 * @return string $formatted_field language_venemoos
 	 */
 	public function format_field( $unformatted_field ) {
-		$translit        = Transliterator::create( 'Any-Latin; Latin-ASCII' );
+		$translit        = $this->transliterator;
 		$formatted_field = $translit->transliterate( $unformatted_field );
 		$formatted_field = trim( $formatted_field );
 		$formatted_field = strtolower( $formatted_field );
