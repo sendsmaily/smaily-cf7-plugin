@@ -243,7 +243,7 @@ class Smaily_For_CF7_Admin {
 			$sanitized['username'],
 			$sanitized['password'],
 		);
-		if ( 200 === $response['code'] ) {
+		if ( 200 === $response['code'] && ! empty( $form_id ) ) {
 			$data_to_save = array(
 				'api-credentials' => array(
 					'subdomain' => $sanitized['subdomain'],
