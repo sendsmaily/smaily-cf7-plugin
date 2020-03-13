@@ -166,6 +166,7 @@ class Smaily_For_CF7_Public {
 	 * @return array $converted_tags Tags with no multiple values.
 	 */
 	public function flatten_posted_tags( $posted_tags ) {
+		$converted_tags = array();
 		foreach ( $posted_tags as $tag_name => $tag_values ) {
 			// If value is one-dimensional, don't alter it. Return it as it is.
 			if ( ! is_array( $tag_values ) ) {
@@ -188,6 +189,7 @@ class Smaily_For_CF7_Public {
 	 * @return array $flattened_tags Flattened multiple value tags.
 	 */
 	public function get_only_flattened_form_tags( $form_tags ) {
+		$flattened_tags = array();
 		foreach ( $form_tags as $tag ) {
 			// Only want tags with multiple values (radio, checkbox).
 			if ( 2 > count( $tag['values'] ) ) {
