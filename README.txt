@@ -12,7 +12,7 @@ Flexible and straightforward Smaily newsletter integration for Contact Form 7.
 
 == Description ==
 
-Smaily email marketing and automation extension plugin for Contact Form 7.
+Smaily email marketing and automation plugin for Contact Form 7.
 
 Automatically subscribe newsletter subscribers to a Smaily subscriber list using forms created in Contact Form 7.
 
