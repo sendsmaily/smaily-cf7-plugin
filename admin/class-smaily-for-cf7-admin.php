@@ -44,8 +44,8 @@ class Smaily_For_CF7_Admin {
 	 * @param      string $version         The version of this plugin.
 	 */
 	public function __construct( $plugin_name, $version ) {
-		$this->smaily_for_cf7 = $plugin_name;
-		$this->version        = $version;
+		$this->plugin_name = $plugin_name;
+		$this->version     = $version;
 	}
 
 	/**
@@ -55,15 +55,15 @@ class Smaily_For_CF7_Admin {
 	 */
 	public function enqueue_scripts() {
 		wp_enqueue_script(
-			$this->smaily_for_cf7,
+			$this->plugin_name,
 			plugins_url( 'js/smaily-for-cf7-admin.js', __FILE__ ),
 			array( 'jquery', 'wpcf7-admin' ),
 			$this->version,
 			true,
 		);
 		wp_localize_script(
-			$this->smaily_for_cf7,
-			$this->smaily_for_cf7,
+			$this->plugin_name,
+			$this->plugin_name,
 			array(
 				'ajax_url' => admin_url( 'admin-ajax.php' ),
 				'nonce'    => wp_create_nonce( 'smailyforcf7-verify-credentials' ),

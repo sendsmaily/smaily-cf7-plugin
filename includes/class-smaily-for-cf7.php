@@ -71,7 +71,7 @@ class Smaily_For_CF7 {
 		} else {
 			$this->version = '1.0.0';
 		}
-		$this->smaily_for_cf7 = 'smaily_for_cf7';
+		$this->plugin_name = 'smaily_for_cf7';
 
 		$this->load_dependencies();
 		$this->define_admin_hooks();
@@ -171,7 +171,7 @@ class Smaily_For_CF7 {
 	 * @return    string    The name of the plugin.
 	 */
 	public function get_smaily_for_cf7() {
-		return $this->smaily_for_cf7;
+		return $this->plugin_name;
 	}
 
 	/**

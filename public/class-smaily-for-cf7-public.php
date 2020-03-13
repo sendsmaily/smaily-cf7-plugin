@@ -55,7 +55,7 @@ class Smaily_For_CF7_Public {
 	 * @param    string $version         The version of this plugin.
 	 */
 	public function __construct( $plugin_name, $version ) {
-		$this->smaily_for_cf7 = $plugin_name;
+		$this->plugin_name    = $plugin_name;
 		$this->version        = $version;
 		$this->transliterator = Transliterator::create( 'Any-Latin; Latin-ASCII' );
 	}
