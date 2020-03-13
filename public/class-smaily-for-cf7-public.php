@@ -78,20 +78,14 @@ class Smaily_For_CF7_Public {
 		$has_captcha_input = false;
 		foreach ( (array) $form_tags as $tag ) {
 			foreach ( $tag as $key => $value ) {
-				// Search for ["basetype"] => "captchac" in tags, return true if found.
 				if ( 'basetype' === $key && 'captchac' === $value ) {
 					$has_captcha_image = true;
-					continue;
-				}
-				// Search for ["basetype"] => "captchar" in tags, return true if found.
-				if ( 'basetype' === $key && 'captchar' === $value ) {
+				} elseif ( 'basetype' === $key && 'captchar' === $value ) {
 					$has_captcha_input = true;
-					continue;
 				}
 			}
 		}
-		$simple_captcha_enabled = ( $has_captcha_image && $has_captcha_input ) ? true : false;
-		return $simple_captcha_enabled;
+		return ( $has_captcha_image && $has_captcha_input );
 	}
 
 	/**
