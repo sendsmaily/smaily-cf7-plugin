@@ -85,13 +85,13 @@ class Smaily_For_CF7_Admin {
 			return;
 		}
 		// Validation and sanitization.
-		$subdomain = isset( $_POST['smailyforcf7-subdomain'] ) ? trim( $_POST['smailyforcf7-subdomain'] ) : '';
-		$username  = isset( $_POST['smailyforcf7-username'] ) ? trim( $_POST['smailyforcf7-username'] ) : '';
-		$password  = isset( $_POST['smailyforcf7-password'] ) ? trim( $_POST['smailyforcf7-password'] ) : '';
+		$subdomain = isset( $_POST['smailyforcf7-subdomain'] ) ? trim( $_POST['smailyforcf7-subdomain'] ) : null;
+		$username  = isset( $_POST['smailyforcf7-username'] ) ? trim( $_POST['smailyforcf7-username'] ) : null;
+		$password  = isset( $_POST['smailyforcf7-password'] ) ? trim( $_POST['smailyforcf7-password'] ) : null;
 		$subdomain = $this->normalize_subdomain( $subdomain );
 		$sanitized = $this->sanitize_credentials( $subdomain, $username, $password );
 
-		$autoresponder = isset( $_POST['smailyforcf7-autoresponder'] ) ? (int) $_POST['smailyforcf7-autoresponder'] : '';
+		$autoresponder = isset( $_POST['smailyforcf7-autoresponder'] ) ? (int) $_POST['smailyforcf7-autoresponder'] : 0;
 		// Delete option here for clearing and unlinking credentials.
 		if ( empty( $sanitized['subdomain'] ) && empty( $sanitized['username'] ) && empty( $sanitized['password'] ) ) {
 			delete_option( 'smailyforcf7_' . $args->id() );
@@ -131,11 +131,11 @@ class Smaily_For_CF7_Admin {
 		// Fetch saved Smaily CF7 option here to pass data along to view.
 		$smailyforcf7_option   = get_option( 'smailyforcf7_' . $form_id, array() );
 		$smaily_credentials    = isset( $smailyforcf7_option['api-credentials'] ) ? $smailyforcf7_option['api-credentials'] : array();
-		$default_autoresponder = isset( $smailyforcf7_option['autoresponder'] ) ? $smailyforcf7_option['autoresponder'] : '';
+		$default_autoresponder = isset( $smailyforcf7_option['autoresponder'] ) ? $smailyforcf7_option['autoresponder'] : 0;
 
-		$subdomain = isset( $smaily_credentials['subdomain'] ) ? $smaily_credentials['subdomain'] : '';
-		$username  = isset( $smaily_credentials['username'] ) ? $smaily_credentials['username'] : '';
-		$password  = isset( $smaily_credentials['password'] ) ? $smaily_credentials['password'] : '';
+		$subdomain = isset( $smaily_credentials['subdomain'] ) ? $smaily_credentials['subdomain'] : null;
+		$username  = isset( $smaily_credentials['username'] ) ? $smaily_credentials['username'] : null;
+		$password  = isset( $smaily_credentials['password'] ) ? $smaily_credentials['password'] : null;
 
 		// Fetch autoresponder data here for view.
 		$response       = $this->verify_credentials( $subdomain, $username, $password );
@@ -187,8 +187,8 @@ class Smaily_For_CF7_Admin {
 		if ( empty( $request ) ) {
 			return;
 		}
-		$response['code']           = isset( $request['code'] ) ? $request['code'] : '';
-		$response['autoresponders'] = isset( $request['body'] ) ? $request['body'] : '';
+		$response['code']           = isset( $request['code'] ) ? (int) $request['code'] : 0;
+		$response['autoresponders'] = isset( $request['body'] ) ? $request['body'] : array();
 		return $response;
 	}
 
@@ -202,16 +202,16 @@ class Smaily_For_CF7_Admin {
 		) {
 			wp_die( esc_html__( 'Your nonce did not verify!', 'wp_smailyforcf7' ) );
 		}
-		$form_id       = isset( $_POST['form_id'] ) ? (int) wp_unslash( $_POST['form_id'] ) : '';
+		$form_id       = isset( $_POST['form_id'] ) ? (int) wp_unslash( $_POST['form_id'] ) : 0;
 		if ( ! current_user_can( 'wpcf7_edit_contact_form', $form_id ) ) {
 			$response['message'] = esc_html__( 'You do not have permission!', 'wp_smailyforcf7' );
 			$response['code']    = 403;
 			wp_send_json( $response );
 		}
-		$subdomain     = isset( $_POST['subdomain'] ) ? trim( $_POST['subdomain'] ) : '';
-		$username      = isset( $_POST['username'] ) ? trim( $_POST['username'] ) : '';
-		$password      = isset( $_POST['password'] ) ? trim( $_POST['password'] ) : '';
-		$autoresponder = isset( $_POST['autoresponder'] ) ? (int) $_POST['autoresponder'] : '';
+		$subdomain     = isset( $_POST['subdomain'] ) ? trim( $_POST['subdomain'] ) : null;
+		$username      = isset( $_POST['username'] ) ? trim( $_POST['username'] ) : null;
+		$password      = isset( $_POST['password'] ) ? trim( $_POST['password'] ) : null;
+		$autoresponder = isset( $_POST['autoresponder'] ) ? (int) $_POST['autoresponder'] : 0;
 
 		if ( empty( $subdomain ) || empty( $username ) || empty( $password ) ) {
 			$response['message'] = esc_html__( 'Please fill out all fields!', 'wp_smailyforcf7' );
@@ -255,7 +255,7 @@ class Smaily_For_CF7_Admin {
 	 * Remove saved Smaily API credentials and delete entry in wp_options database.
 	 */
 	public function remove_credentials_callback() {
-		$form_id = isset( $_POST['form_id'] ) ? (int) wp_unslash( $_POST['form_id'] ) : '';
+		$form_id = isset( $_POST['form_id'] ) ? (int) wp_unslash( $_POST['form_id'] ) : 0;
 		if ( ! current_user_can( 'wpcf7_delete_contact_form', $form_id ) ) {
 			wp_send_json( esc_html__( 'You do not have permission!', 'wp_smailyforcf7' ) );
 		}
