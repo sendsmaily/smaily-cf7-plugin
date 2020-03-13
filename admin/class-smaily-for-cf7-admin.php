@@ -267,13 +267,19 @@ class Smaily_For_CF7_Admin {
 	public function remove_credentials_callback() {
 		$form_id = isset( $_POST['form_id'] ) ? (int) wp_unslash( $_POST['form_id'] ) : 0;
 		if ( ! current_user_can( 'wpcf7_delete_contact_form', $form_id ) ) {
-			wp_send_json( esc_html__( 'You do not have permission!', 'wp_smailyforcf7' ) );
+			$response['message'] = esc_html__( 'You do not have permission!', 'smaily-for-cf7' );
+			$response['code']    = 403;
+			wp_send_json( $response );
 		}
 		if ( get_option( 'smailyforcf7_form_' . $form_id ) ) {
 			delete_option( 'smailyforcf7_form_' . $form_id );
-			wp_send_json( esc_html__( 'Credentials removed', 'wp_smailyforcf7' ) );
+			$response['message'] = esc_html__( 'Credentials removed', 'smaily-for-cf7' );
+			$response['code']    = 200;
+		} else {
+			$response['message'] = esc_html__( 'No credentials to remove', 'smaily-for-cf7' );
+			$response['code']    = 404;
 		}
-		wp_send_json( esc_html__( 'No credentials to remove', 'wp_smailyforcf7' ) );
+		wp_send_json( $response );
 	}
 
 	public function sanitize_credentials( $subdomain, $username, $password ) {
