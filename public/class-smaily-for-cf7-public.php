@@ -145,6 +145,7 @@ class Smaily_For_CF7_Public {
 	 * @return array $smaily_fields Smaily fields (e.g email).
 	 */
 	public function filter_smaily_fields( $posted_data ) {
+		$smaily_fields = array();
 		foreach ( $posted_data as $key => $value ) {
 			// Explode limit at 2 to prevent smaily-lang-choice from returning lang.
 			$exploded_tag = explode( '-', $key, 2 );
