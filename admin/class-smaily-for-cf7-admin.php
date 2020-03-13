@@ -44,10 +44,8 @@ class Smaily_For_CF7_Admin {
 	 * @param      string $version         The version of this plugin.
 	 */
 	public function __construct( $plugin_name, $version ) {
-
 		$this->smaily_for_cf7 = $plugin_name;
 		$this->version        = $version;
-
 	}
 
 	/**

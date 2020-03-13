@@ -219,10 +219,12 @@ class Smaily_For_CF7_Public {
 	public function subscribe_post( $smaily_fields, $smailyforcf7_option ) {
 		// If subdomain is empty, function can't send a valid post.
 		$subdomain = isset( $smailyforcf7_option['api-credentials']['subdomain'] )
-		? $smailyforcf7_option['api-credentials']['subdomain'] : '';
+			? $smailyforcf7_option['api-credentials']['subdomain'] : '';
+
 		if ( empty( $subdomain ) ) {
 			return;
 		}
+
 		$autoresponder = isset( $smailyforcf7_option['autoresponder'] )
 			? $smailyforcf7_option['autoresponder'] : '';
 		$current_url   = $this->current_url();
