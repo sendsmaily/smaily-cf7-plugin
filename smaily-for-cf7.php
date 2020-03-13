@@ -17,7 +17,7 @@
  * License: GPL3
  * Author: Smaily
  * Author URI: https://smaily.com/
- * Text Domain: wp_smailyforcf7
+ * Text Domain: smaily-for-cf7
  * Domain Path: languages
  *
  * Smaily for Contact Form 7 is free software: you can redistribute it and/or modify
@@ -73,7 +73,7 @@ function smaily_for_cf7_admin_notices() {
 	$message = __(
 		'Smaily for Contact Form 7 is not able to activate.
 		Contact Form 7 is needed to function properly. Is Contact Form 7 installed?',
-		'wp_smailyforcf7'
+		'smaily-for-cf7'
 	);
 	echo "<div class='update-message notice inline notice-warning notice-alt'><p>" . esc_html( $message ) . '</p></div>';
 }

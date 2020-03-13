@@ -152,7 +152,7 @@ class Smaily_For_CF7_Admin {
 	public function add_tab( $panels ) {
 		$panel = array(
 			'smailyforcf7' => array(
-				'title'    => __( 'Smaily for Contact Form 7', 'contact-form-7' ),
+				'title'    => __( 'Smaily for Contact Form 7', 'smaily-for-cf7' ),
 				'callback' => array( $this, 'panel_content' ),
 			),
 		);
@@ -218,12 +218,12 @@ class Smaily_For_CF7_Admin {
 			! isset( $_POST['nonce'] )
 			|| ! wp_verify_nonce( $_POST['nonce'], 'smailyforcf7-verify-credentials' )
 		) {
-			wp_die( esc_html__( 'Your nonce did not verify!', 'wp_smailyforcf7' ) );
+			wp_die( esc_html__( 'Your nonce did not verify!', 'smaily-for-cf7' ) );
 		}
 
 		$form_id       = isset( $_POST['form_id'] ) ? (int) wp_unslash( $_POST['form_id'] ) : 0;
 		if ( ! current_user_can( 'wpcf7_edit_contact_form', $form_id ) ) {
-			$response['message'] = esc_html__( 'You do not have permission!', 'wp_smailyforcf7' );
+			$response['message'] = esc_html__( 'You do not have permission!', 'smaily-for-cf7' );
 			$response['code']    = 403;
 			wp_send_json( $response );
 		}
@@ -234,7 +234,7 @@ class Smaily_For_CF7_Admin {
 		$autoresponder = isset( $_POST['autoresponder'] ) ? (int) $_POST['autoresponder'] : 0;
 
 		if ( empty( $subdomain ) || empty( $username ) || empty( $password ) ) {
-			$response['message'] = esc_html__( 'Please fill out all fields!', 'wp_smailyforcf7' );
+			$response['message'] = esc_html__( 'Please fill out all fields!', 'smaily-for-cf7' );
 			$response['code']    = 422;
 			wp_send_json( $response );
 		}

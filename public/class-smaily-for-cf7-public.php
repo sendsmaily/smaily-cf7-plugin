@@ -100,7 +100,7 @@ class Smaily_For_CF7_Public {
 		if ( ! $isset_captcha && ! $isset_recaptcha ) {
 			$error_message = esc_html__( 'No CAPTCHA detected.
 				Please use reCAPTCHA integration or add a Really Simple Captcha to this form',
-				'wp_smailyforcf7',
+				'smaily-for-cf7',
 			);
 			$this->set_wpcf7_error( $error_message );
 			return;
@@ -243,20 +243,20 @@ class Smaily_For_CF7_Public {
 			->setData( $array )
 			->post();
 		if ( empty( $result ) ) {
-			$error_message = esc_html__( 'Something went wrong', 'wp_smailyforcf7' );
+			$error_message = esc_html__( 'Something went wrong', 'smaily-for-cf7' );
 		} elseif ( 101 !== (int) $result['code'] ) {
 			switch ( $result['code'] ) {
 				case 201:
-					$error_message = esc_html__( 'Form was not submitted using POST method.', 'wp_smailyforcf7' );
+					$error_message = esc_html__( 'Form was not submitted using POST method.', 'smaily-for-cf7' );
 					break;
 				case 204:
-					$error_message = esc_html__( 'Input does not contain a valid email address.', 'wp_smailyforcf7' );
+					$error_message = esc_html__( 'Input does not contain a valid email address.', 'smaily-for-cf7' );
 					break;
 				case 205:
-					$error_message = esc_html__( 'Could not add to subscriber list for an unknown reason.', 'wp_smailyforcf7' );
+					$error_message = esc_html__( 'Could not add to subscriber list for an unknown reason.', 'smaily-for-cf7' );
 					break;
 				default:
-					$error_message = esc_html__( 'Something went wrong', 'wp_smailyforcf7' );
+					$error_message = esc_html__( 'Something went wrong', 'smaily-for-cf7' );
 					break;
 			}
 		}
