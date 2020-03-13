@@ -320,13 +320,13 @@ Consent to processing of personal data?
 		// Last resort clean up subdomain and pass as is.
 		if ( filter_var( $subdomain, FILTER_VALIDATE_URL ) ) {
 			$url       = wp_parse_url( $subdomain );
-			$parts     = explode( '.', $url['host'] );
+			$parts     = explode( ' . ', $url['host'] );
 			$subdomain = count( $parts ) >= 3 ? $parts[0] : '';
-		} elseif ( preg_match( '/^[^\.]+\.sendsmaily\.net$/', $subdomain ) ) {
-			$parts     = explode( '.', $subdomain );
+		} elseif ( preg_match( ' / ^ array( ^ \ . ) + \ . sendsmaily\ . net$ / ', $subdomain ) ) {
+			$parts     = explode( ' . ', $subdomain );
 			$subdomain = $parts[0];
 		}
-		$subdomain = preg_replace( '/[^a-zA-Z0-9]+/', '', $subdomain );
+		$subdomain = preg_replace( ' / array( ^ a - zA - Z0 - 9 ) + / ', '', $subdomain );
 		return $subdomain;
 	}
 }
