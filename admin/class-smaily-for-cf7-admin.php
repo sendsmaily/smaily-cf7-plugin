@@ -79,11 +79,11 @@ class Smaily_For_CF7_Admin {
 	 * @return void
 	 */
 	public function save( $args ) {
+		$user_cant_edit = ! current_user_can( 'wpcf7_edit_contact_form', $args->id() );
 
-		if ( empty( $_POST ) ) {
+		if ( empty( $_POST || $user_cant_edit ) ) {
 			return;
 		}
-
 		// Validation and sanitization.
 		$subdomain = isset( $_POST['smailyforcf7-subdomain'] ) ? trim( $_POST['smailyforcf7-subdomain'] ) : '';
 		$username  = isset( $_POST['smailyforcf7-username'] ) ? trim( $_POST['smailyforcf7-username'] ) : '';
@@ -199,6 +199,11 @@ class Smaily_For_CF7_Admin {
 			wp_die( esc_html__( 'Your nonce did not verify!', 'wp_smailyforcf7' ) );
 		}
 		$form_id       = isset( $_POST['form_id'] ) ? (int) wp_unslash( $_POST['form_id'] ) : '';
+		if ( ! current_user_can( 'wpcf7_edit_contact_form', $form_id ) ) {
+			$response['message'] = esc_html__( 'You do not have permission!', 'wp_smailyforcf7' );
+			$response['code']    = 403;
+			wp_send_json( $response );
+		}
 		$subdomain     = isset( $_POST['subdomain'] ) ? trim( $_POST['subdomain'] ) : '';
 		$username      = isset( $_POST['username'] ) ? trim( $_POST['username'] ) : '';
 		$password      = isset( $_POST['password'] ) ? trim( $_POST['password'] ) : '';
@@ -245,6 +250,9 @@ class Smaily_For_CF7_Admin {
 	 */
 	public function remove_credentials_callback() {
 		$form_id = isset( $_POST['form_id'] ) ? (int) wp_unslash( $_POST['form_id'] ) : '';
+		if ( ! current_user_can( 'wpcf7_delete_contact_form', $form_id ) ) {
+			wp_send_json( esc_html__( 'You do not have permission!', 'wp_smailyforcf7' ) );
+		}
 		if ( get_option( 'smailyforcf7_' . $form_id ) ) {
 			delete_option( 'smailyforcf7_' . $form_id );
 			wp_send_json( esc_html__( 'Credentials removed', 'wp_smailyforcf7' ) );
