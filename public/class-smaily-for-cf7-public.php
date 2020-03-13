@@ -249,7 +249,7 @@ class Smaily_For_CF7_Public {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . '/includes/class-smaily-for-cf7-request.php';
 		$url = 'https://' . $subdomain . '.sendsmaily.net/api/autoresponder.php';
 
-		$result = ( new Smaily_For_CF7_Plugin_Request() )
+		$result = ( new Smaily_For_CF7_Request() )
 			->setUrl( $url )
 			->setData( $array )
 			->post();
