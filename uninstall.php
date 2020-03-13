@@ -14,7 +14,7 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 	exit;
 }
 foreach ( wp_load_alloptions() as $option => $value ) {
-	if ( strpos( $option, 'smailyforcf7_form_' ) === 0 ) {
+	if ( strpos( $option, 'smailyforcf7_' ) === 0 ) {
 		delete_option( $option );
 	}
 }

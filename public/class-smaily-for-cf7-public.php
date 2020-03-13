@@ -25,9 +25,9 @@ class Smaily_For_CF7_Public {
 	 *
 	 * @since    1.0.0
 	 * @access   private
-	 * @var      string    $plugin_name    The ID of this plugin.
+	 * @var      string    $smaily_for_cf7    The ID of this plugin.
 	 */
-	private $plugin_name;
+	private $smaily_for_cf7;
 
 	/**
 	 * The version of this plugin.
@@ -39,25 +39,17 @@ class Smaily_For_CF7_Public {
 	private $version;
 
 	/**
-	 * The transliterator instance.
-	 *
-	 * @since    1.0.0
-	 * @access   public
-	 * @var      Transliterator    $transliterator    The transliterator instance.
-	 */
-	public $transliterator;
-
-	/**
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
-	 * @param    string $plugin_name  The name of the plugin.
+	 * @param    string $smaily_for_cf7  The name of the plugin.
 	 * @param    string $version         The version of this plugin.
 	 */
-	public function __construct( $plugin_name, $version ) {
-		$this->smaily_for_cf7 = $plugin_name;
+	public function __construct( $smaily_for_cf7, $version ) {
+
+		$this->smaily_for_cf7 = $smaily_for_cf7;
 		$this->version        = $version;
-		$this->transliterator = Transliterator::create( 'Any-Latin; Latin-ASCII' );
+
 	}
 
 	/**
@@ -78,14 +70,20 @@ class Smaily_For_CF7_Public {
 		$has_captcha_input = false;
 		foreach ( (array) $form_tags as $tag ) {
 			foreach ( $tag as $key => $value ) {
+				// Search for ["basetype"] => "captchac" in tags, return true if found.
 				if ( 'basetype' === $key && 'captchac' === $value ) {
 					$has_captcha_image = true;
-				} elseif ( 'basetype' === $key && 'captchar' === $value ) {
+					continue;
+				}
+				// Search for ["basetype"] => "captchar" in tags, return true if found.
+				if ( 'basetype' === $key && 'captchar' === $value ) {
 					$has_captcha_input = true;
+					continue;
 				}
 			}
 		}
-		return ( $has_captcha_image && $has_captcha_input );
+		$simple_captcha_enabled = ( $has_captcha_image && $has_captcha_input ) ? true : false;
+		return $simple_captcha_enabled;
 	}
 
 	/**
@@ -96,10 +94,10 @@ class Smaily_For_CF7_Public {
 	 * @param array             $result Result of submit.
 	 */
 	public function submit( $instance, $result ) {
-		// Enforcing reCAPTCHA/Really Simple Captcha.
+		// Enforcing recaptcha/captcha.
+		$isset_recaptcha = isset( get_option( 'wpcf7' )['recaptcha'] );
 		$form_tags       = WPCF7_FormTagsManager::get_instance()->get_scanned_tags();
 		$isset_captcha   = $this->search_for_cf7_captcha( $form_tags );
-		$isset_recaptcha = isset( get_option( 'wpcf7' )['recaptcha'] );
 		if ( ! $isset_captcha && ! $isset_recaptcha ) {
 			$error_message = esc_html__( 'No CAPTCHA detected.
 				Please use reCAPTCHA integration or add a Really Simple Captcha to this form',
@@ -108,30 +106,25 @@ class Smaily_For_CF7_Public {
 			$this->set_wpcf7_error( $error_message );
 			return;
 		}
-
-		// Check if Contact Form 7 validation has passed.
 		$submission_instance = WPCF7_Submission::get_instance();
+		// Check if Contact Form 7 validation has passed.
 		if ( $submission_instance->get_status() !== 'mail_sent' ) {
 			return;
 		}
-
-		// Don't continue if no posted data or no saved credentials.
 		$posted_data         = $submission_instance->get_posted_data();
-		$smailyforcf7_option = get_option( 'smailyforcf7_form_' . $instance->id() );
+		$smailyforcf7_option = get_option( 'smailyforcf7_' . $instance->id() );
+		// Don't continue if no posted data or no saved credentials.
 		if ( empty( $posted_data ) || false === $smailyforcf7_option ) {
 			return;
 		}
-
 		// Contact Form 7 doesn't output unclicked tags in $posted_data.
-		// Union merging possible & posted tags. Posted tags overwrite possible tags.
 		$form_tags     = $instance->scan_form_tags();
 		$possible_tags = $this->get_only_flattened_form_tags( $form_tags );
 		$posted_tags   = $this->flatten_posted_tags( $posted_data );
-		$merged_tags   = $posted_tags + $possible_tags;
-		$merged_tags   = $this->filter_smaily_fields( $merged_tags );
-
+		// Union merging possible & posted tags. Posted tags overwrite possible tags.
+		$merged_tags = $posted_tags + $possible_tags;
+		$merged_tags = $this->remove_smaily_prefix( $merged_tags );
 		// To prevent having a duplicate field of lang_estonia and lang_естония.
-		$formatted_tags = array();
 		foreach ( $merged_tags as $tag => $value ) {
 			$formatted_tags[ $this->format_field( $tag ) ] = $value;
 		}
@@ -144,7 +137,7 @@ class Smaily_For_CF7_Public {
 	 * @param array $posted_data All posted fields (e.g smaily-email).
 	 * @return array $smaily_fields Smaily fields (e.g email).
 	 */
-	public function filter_smaily_fields( $posted_data ) {
+	public function remove_smaily_prefix( $posted_data ) {
 		foreach ( $posted_data as $key => $value ) {
 			// Explode limit at 2 to prevent smaily-lang-choice from returning lang.
 			$exploded_tag = explode( '-', $key, 2 );
@@ -166,7 +159,6 @@ class Smaily_For_CF7_Public {
 	 * @return array $converted_tags Tags with no multiple values.
 	 */
 	public function flatten_posted_tags( $posted_tags ) {
-		$converted_tags = array();
 		foreach ( $posted_tags as $tag_name => $tag_values ) {
 			// If value is one-dimensional, don't alter it. Return it as it is.
 			if ( ! is_array( $tag_values ) ) {
@@ -189,7 +181,6 @@ class Smaily_For_CF7_Public {
 	 * @return array $flattened_tags Flattened multiple value tags.
 	 */
 	public function get_only_flattened_form_tags( $form_tags ) {
-		$flattened_tags = array();
 		foreach ( $form_tags as $tag ) {
 			// Only want tags with multiple values (radio, checkbox).
 			if ( 2 > count( $tag['values'] ) ) {
@@ -209,7 +200,7 @@ class Smaily_For_CF7_Public {
 	 * @return string $formatted_field language_venemoos
 	 */
 	public function format_field( $unformatted_field ) {
-		$translit        = $this->transliterator;
+		$translit        = Transliterator::create( 'Any-Latin; Latin-ASCII' );
 		$formatted_field = $translit->transliterate( $unformatted_field );
 		$formatted_field = trim( $formatted_field );
 		$formatted_field = strtolower( $formatted_field );
@@ -224,16 +215,15 @@ class Smaily_For_CF7_Public {
 	 *
 	 * @param array $smaily_fields Fields to be sent to Smaily.
 	 * @param array $smailyforcf7_option Smaily credentials and autoresponder data.
+	 * @return void
 	 */
 	public function subscribe_post( $smaily_fields, $smailyforcf7_option ) {
 		// If subdomain is empty, function can't send a valid post.
 		$subdomain = isset( $smailyforcf7_option['api-credentials']['subdomain'] )
-			? $smailyforcf7_option['api-credentials']['subdomain'] : '';
-
+		? $smailyforcf7_option['api-credentials']['subdomain'] : '';
 		if ( empty( $subdomain ) ) {
 			return;
 		}
-
 		$autoresponder = isset( $smailyforcf7_option['autoresponder'] )
 			? $smailyforcf7_option['autoresponder'] : '';
 		$current_url   = $this->current_url();
@@ -246,27 +236,26 @@ class Smaily_For_CF7_Public {
 		);
 		$array = array_merge( $array, $smaily_fields );
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . '/includes/class-smaily-for-cf7-request.php';
-		$url = 'https://' . $subdomain . '.sendsmaily.net/api/autoresponder.php';
-
-		$result = ( new Smaily_For_CF7_Request() )
+		$url    = 'https://' . $subdomain . '.sendsmaily.net/api/opt-in/';
+		$result = ( new Smaily_For_CF7_Plugin_Request() )
 			->setUrl( $url )
 			->setData( $array )
 			->post();
 		if ( empty( $result ) ) {
-			$error_message = esc_html__( 'Something went wrong', 'smaily-for-cf7' );
+			$error_message = esc_html__( 'Something went wrong', 'wp_smailyforcf7' );
 		} elseif ( 101 !== (int) $result['code'] ) {
 			switch ( $result['code'] ) {
 				case 201:
-					$error_message = esc_html__( 'Form was not submitted using POST method.', 'smaily-for-cf7' );
+					$error_message = esc_html__( 'Form was not submitted using POST method.', 'wp_smailyforcf7' );
 					break;
 				case 204:
-					$error_message = esc_html__( 'Input does not contain a valid email address.', 'smaily-for-cf7' );
+					$error_message = esc_html__( 'Input does not contain a valid email address.', 'wp_smailyforcf7' );
 					break;
 				case 205:
-					$error_message = esc_html__( 'Could not add to subscriber list for an unknown reason.', 'smaily-for-cf7' );
+					$error_message = esc_html__( 'Could not add to subscriber list for an unknown reason.', 'wp_smailyforcf7' );
 					break;
 				default:
-					$error_message = esc_html__( 'Something went wrong', 'smaily-for-cf7' );
+					$error_message = esc_html__( 'Something went wrong', 'wp_smailyforcf7' );
 					break;
 			}
 		}
@@ -280,7 +269,12 @@ class Smaily_For_CF7_Public {
 	 * Returns current URL
 	 */
 	public function current_url() {
-		$current_url = get_site_url( null, wp_unslash( $_SERVER['REQUEST_URI'] ) );
+		$current_url = null;
+		if ( isset( $_SERVER['HTTP_HOST'] ) && isset( $_SERVER['REQUEST_URI'] ) ) {
+			$current_url  = is_ssl() ? 'https://' : 'http://';
+			$current_url .= wp_unslash( $_SERVER['HTTP_HOST'] ); // phpcs:ignore
+			$current_url .= wp_unslash( $_SERVER['REQUEST_URI'] ); // phpcs:ignore
+		}
 		return $current_url;
 	}
 

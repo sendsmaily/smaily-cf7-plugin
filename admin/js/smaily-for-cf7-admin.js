@@ -12,7 +12,7 @@
 				password: $('input[name=smailyforcf7-password]').val(),
 
 				// Can't use WPCF7_ContactForm in callback, get form (post) ID with Ajax.
-				form_id: $.getUrlParam('post'),
+				form_id: new URLSearchParams(window.location.search).get('post'),
 				// send the nonce along with the request
 				nonce: smaily_for_cf7.nonce
 			})
@@ -42,34 +42,19 @@
 				{
 					action: 'remove_credentials_callback',
 					// Can't use WPCF7_ContactForm in callback, get form (post) ID with Ajax.
-					form_id: $.getUrlParam('post'),
+					form_id: new URLSearchParams(window.location.search).get('post'),
 				},
-				function (result) {
-					if (result.code === 200) {
-						$('#smailyforcf7-credentials-success').text(result.message).show();
-						// Clear credentials
-						$('input[name=smailyforcf7-subdomain]').val('');
-						$('input[name=smailyforcf7-username]').val('');
-						$('input[name=smailyforcf7-password]').val('');
-						// User shouldn't be able to select autoresponder without credentials.
-						$('#smailyforcf7-autoresponders').hide();
-					} else {
-						$('#smailyforcf7-credentials-error').text(result.message).show();
-					}
-
+				function (message) {
+					$('#smailyforcf7-credentials-success').text(message).show();
+					// Clear credentials
+					$('input[name=smailyforcf7-subdomain]').val('');
+					$('input[name=smailyforcf7-username]').val('');
+					$('input[name=smailyforcf7-password]').val('');
+					// User shouldn't be able to select autoresponder without credentials.
+					$('#smailyforcf7-autoresponders').hide();
 				},
 			);
 			return false;
 		});
-
-		$.getUrlParam = function(name){
-			var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
-			if (results == null){
-			   return null;
-			}
-			else {
-			   return decodeURI(results[1]) || 0;
-			}
-		}
 	});
 })( jQuery );

@@ -46,6 +46,7 @@ class Smaily_For_CF7_Loader {
 	 * @since    1.0.0
 	 */
 	public function __construct() {
+
 		$this->actions = array();
 		$this->filters = array();
 	}

@@ -1,23 +1,6 @@
 <?php
-/**
- * The file that defines the request functions used by the plugin.
- *
- * @link       https://github.com/sendsmaily/smaily-cf7-plugin
- * @since      1.0.0
- *
- * @package    Smaily_For_CF7
- * @subpackage Smaily_For_CF7/includes
- * @author     Smaily
- */
 
-/**
- * The request functions used by the plugin.
- *
- * @since      1.0.0
- * @package    Smaily_For_CF7
- * @subpackage Smaily_For_CF7/includes
- */
-class Smaily_For_CF7_Request {
+class Smaily_For_CF7_Plugin_Request {
 
 	protected $_url = NULL;
 
