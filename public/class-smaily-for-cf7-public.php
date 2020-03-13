@@ -96,10 +96,10 @@ class Smaily_For_CF7_Public {
 	 * @param array             $result Result of submit.
 	 */
 	public function submit( $instance, $result ) {
-		// Enforcing recaptcha/captcha.
-		$isset_recaptcha = isset( get_option( 'wpcf7' )['recaptcha'] );
+		// Enforcing reCAPTCHA/Really Simple Captcha.
 		$form_tags       = WPCF7_FormTagsManager::get_instance()->get_scanned_tags();
 		$isset_captcha   = $this->search_for_cf7_captcha( $form_tags );
+		$isset_recaptcha = isset( get_option( 'wpcf7' )['recaptcha'] );
 		if ( ! $isset_captcha && ! $isset_recaptcha ) {
 			$error_message = esc_html__( 'No CAPTCHA detected.
 				Please use reCAPTCHA integration or add a Really Simple Captcha to this form',
@@ -108,25 +108,30 @@ class Smaily_For_CF7_Public {
 			$this->set_wpcf7_error( $error_message );
 			return;
 		}
-		$submission_instance = WPCF7_Submission::get_instance();
+
 		// Check if Contact Form 7 validation has passed.
+		$submission_instance = WPCF7_Submission::get_instance();
 		if ( $submission_instance->get_status() !== 'mail_sent' ) {
 			return;
 		}
+
+		// Don't continue if no posted data or no saved credentials.
 		$posted_data         = $submission_instance->get_posted_data();
 		$smailyforcf7_option = get_option( 'smailyforcf7_form_' . $instance->id() );
-		// Don't continue if no posted data or no saved credentials.
 		if ( empty( $posted_data ) || false === $smailyforcf7_option ) {
 			return;
 		}
+
 		// Contact Form 7 doesn't output unclicked tags in $posted_data.
+		// Union merging possible & posted tags. Posted tags overwrite possible tags.
 		$form_tags     = $instance->scan_form_tags();
 		$possible_tags = $this->get_only_flattened_form_tags( $form_tags );
 		$posted_tags   = $this->flatten_posted_tags( $posted_data );
-		// Union merging possible & posted tags. Posted tags overwrite possible tags.
-		$merged_tags = $posted_tags + $possible_tags;
-		$merged_tags = $this->filter_smaily_fields( $merged_tags );
+		$merged_tags   = $posted_tags + $possible_tags;
+		$merged_tags   = $this->filter_smaily_fields( $merged_tags );
+
 		// To prevent having a duplicate field of lang_estonia and lang_естония.
+		$formatted_tags = array();
 		foreach ( $merged_tags as $tag => $value ) {
 			$formatted_tags[ $this->format_field( $tag ) ] = $value;
 		}
