@@ -282,12 +282,7 @@ class Smaily_For_CF7_Public {
 	 * Returns current URL
 	 */
 	public function current_url() {
-		$current_url = null;
-		if ( isset( $_SERVER['HTTP_HOST'] ) && isset( $_SERVER['REQUEST_URI'] ) ) {
-			$current_url  = is_ssl() ? 'https://' : 'http://';
-			$current_url .= wp_unslash( $_SERVER['HTTP_HOST'] ); // phpcs:ignore
-			$current_url .= wp_unslash( $_SERVER['REQUEST_URI'] ); // phpcs:ignore
-		}
+		$current_url = get_site_url( null, wp_unslash( $_SERVER['REQUEST_URI'] ) );
 		return $current_url;
 	}
 
