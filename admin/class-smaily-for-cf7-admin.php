@@ -220,12 +220,14 @@ class Smaily_For_CF7_Admin {
 		) {
 			wp_die( esc_html__( 'Your nonce did not verify!', 'wp_smailyforcf7' ) );
 		}
+
 		$form_id       = isset( $_POST['form_id'] ) ? (int) wp_unslash( $_POST['form_id'] ) : 0;
 		if ( ! current_user_can( 'wpcf7_edit_contact_form', $form_id ) ) {
 			$response['message'] = esc_html__( 'You do not have permission!', 'wp_smailyforcf7' );
 			$response['code']    = 403;
 			wp_send_json( $response );
 		}
+
 		$subdomain     = isset( $_POST['subdomain'] ) ? trim( $_POST['subdomain'] ) : null;
 		$username      = isset( $_POST['username'] ) ? trim( $_POST['username'] ) : null;
 		$password      = isset( $_POST['password'] ) ? trim( $_POST['password'] ) : null;
@@ -233,9 +235,10 @@ class Smaily_For_CF7_Admin {
 
 		if ( empty( $subdomain ) || empty( $username ) || empty( $password ) ) {
 			$response['message'] = esc_html__( 'Please fill out all fields!', 'wp_smailyforcf7' );
-			$response['code']    = 204;
+			$response['code']    = 422;
 			wp_send_json( $response );
 		}
+
 		$subdomain = $this->normalize_subdomain( $subdomain );
 		$sanitized = $this->sanitize_credentials( $subdomain, $username, $password );
 		$response  = $this->fetch_autoresponders(
@@ -243,6 +246,7 @@ class Smaily_For_CF7_Admin {
 			$sanitized['username'],
 			$sanitized['password'],
 		);
+
 		if ( 200 === $response['code'] && ! empty( $form_id ) ) {
 			$data_to_save = array(
 				'api-credentials' => array(
