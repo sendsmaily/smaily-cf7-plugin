@@ -76,7 +76,6 @@ class Smaily_For_CF7_Admin {
 	 * Smaily credentials & autoresponder data to database.
 	 *
 	 * @param WPCF7_ContactForm $args Arguments of form.
-	 * @return void
 	 */
 	public function save( $args ) {
 		$user_cant_edit = ! current_user_can( 'wpcf7_edit_contact_form', $args->id() );

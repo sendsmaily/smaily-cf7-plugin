@@ -225,7 +225,6 @@ class Smaily_For_CF7_Public {
 	 *
 	 * @param array $smaily_fields Fields to be sent to Smaily.
 	 * @param array $smailyforcf7_option Smaily credentials and autoresponder data.
-	 * @return void
 	 */
 	public function subscribe_post( $smaily_fields, $smailyforcf7_option ) {
 		// If subdomain is empty, function can't send a valid post.
