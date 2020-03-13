@@ -105,7 +105,7 @@ class Smaily_For_CF7_Admin {
 		);
 
 		// Don't save invalid credentials.
-		if ( 200 !== (int) $response['code'] ) {
+		if ( 200 !== $response['code'] ) {
 			return;
 		}
 
@@ -220,8 +220,7 @@ class Smaily_For_CF7_Admin {
 		) {
 			wp_die( esc_html__( 'Your nonce did not verify!', 'smaily-for-cf7' ) );
 		}
-
-		$form_id       = isset( $_POST['form_id'] ) ? (int) wp_unslash( $_POST['form_id'] ) : 0;
+		$form_id = isset( $_POST['form_id'] ) ? (int) wp_unslash( $_POST['form_id'] ) : 0;
 		if ( ! current_user_can( 'wpcf7_edit_contact_form', $form_id ) ) {
 			$response['message'] = esc_html__( 'You do not have permission!', 'smaily-for-cf7' );
 			$response['code']    = 403;
