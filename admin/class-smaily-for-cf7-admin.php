@@ -138,8 +138,8 @@ class Smaily_For_CF7_Admin {
 		$password  = isset( $smaily_credentials['password'] ) ? $smaily_credentials['password'] : null;
 
 		// Fetch autoresponder data here for view.
-		$response       = $this->fetch_autoresponders( $subdomain, $username, $password );
-		$autoresponders = $response['autoresponders'];
+		$response           = $this->fetch_autoresponders( $subdomain, $username, $password );
+		$autoresponder_list = $response['autoresponders'];
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/smaily-for-cf7-admin-display.php';
 	}
 
