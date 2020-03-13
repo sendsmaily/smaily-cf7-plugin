@@ -230,8 +230,12 @@ class Smaily_For_CF7_Public {
 		// If subdomain is empty, function can't send a valid post.
 		$subdomain = isset( $smailyforcf7_option['api-credentials']['subdomain'] )
 			? $smailyforcf7_option['api-credentials']['subdomain'] : '';
+		$username = isset( $smailyforcf7_option['api-credentials']['username'] )
+			? $smailyforcf7_option['api-credentials']['username'] : '';
+		$password = isset( $smailyforcf7_option['api-credentials']['password'] )
+			? $smailyforcf7_option['api-credentials']['password'] : '';
 
-		if ( empty( $subdomain ) ) {
+		if ( empty( $subdomain ) || empty( $username ) || empty( $password ) ) {
 			return;
 		}
 
@@ -240,17 +244,15 @@ class Smaily_For_CF7_Public {
 		$current_url   = $this->current_url();
 
 		$array = array(
-			'remote'        => 1,
-			'success_url'   => $current_url,
-			'failure_url'   => $current_url,
 			'autoresponder' => $autoresponder,
+			'addresses'     => array( $smaily_fields ),
 		);
-		$array = array_merge( $array, $smaily_fields );
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . '/includes/class-smaily-for-cf7-request.php';
 		$url = 'https://' . $subdomain . '.sendsmaily.net/api/autoresponder.php';
 
 		$result = ( new Smaily_For_CF7_Request() )
 			->setUrl( $url )
+			->auth( $username, $password )
 			->setData( $array )
 			->post();
 		if ( empty( $result ) ) {

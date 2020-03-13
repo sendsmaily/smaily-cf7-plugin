@@ -71,8 +71,14 @@ class Smaily_For_CF7_Request {
 	 */
 	public function post() {
 		$response = array();
-
-		$subscription_post = wp_remote_post( $this->_url, array( 'body' => http_build_query( $this->_data ) ) );
+		$auth     = array(
+			'headers' => array(
+				'Authorization' => 'Basic ' . base64_encode( $this->_username . ':' . $this->_password ),
+			),
+		);
+		$body = array( 'body' => $this->_data );
+		$args = array_merge( $auth, $body );
+		$subscription_post = wp_remote_post( $this->_url, http_build_query( $args ) );
 		// Response code from Smaily API.
 		if ( is_wp_error( $subscription_post ) ) {
 			$response = array( 'error' => $subscription_post->get_error_message() );
