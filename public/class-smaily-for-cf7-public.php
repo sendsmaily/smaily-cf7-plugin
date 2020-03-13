@@ -25,9 +25,9 @@ class Smaily_For_CF7_Public {
 	 *
 	 * @since    1.0.0
 	 * @access   private
-	 * @var      string    $smaily_for_cf7    The ID of this plugin.
+	 * @var      string    $plugin_name    The ID of this plugin.
 	 */
-	private $smaily_for_cf7;
+	private $plugin_name;
 
 	/**
 	 * The version of this plugin.
@@ -42,12 +42,11 @@ class Smaily_For_CF7_Public {
 	 * Initialize the class and set its properties.
 	 *
 	 * @since    1.0.0
-	 * @param    string $smaily_for_cf7  The name of the plugin.
+	 * @param    string $plugin_name  The name of the plugin.
 	 * @param    string $version         The version of this plugin.
 	 */
-	public function __construct( $smaily_for_cf7, $version ) {
-
-		$this->smaily_for_cf7 = $smaily_for_cf7;
+	public function __construct( $plugin_name, $version ) {
+		$this->smaily_for_cf7 = $plugin_name;
 		$this->version        = $version;
 
 	}

@@ -39,13 +39,13 @@ class Smaily_For_CF7 {
 	protected $loader;
 
 	/**
-	 * The unique identifier of this plugin.
+	 * The ID of this plugin.
 	 *
 	 * @since    1.0.0
 	 * @access   protected
-	 * @var      string    $smaily_for_cf7    The string used to uniquely identify this plugin.
+	 * @var      string    $plugin_name    The string used to uniquely identify this plugin.
 	 */
-	protected $smaily_for_cf7;
+	protected $plugin_name;
 
 	/**
 	 * The current version of the plugin.
