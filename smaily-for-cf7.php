@@ -1,18 +1,20 @@
 <?php
 /**
- * This is a plugin for Contact Form 7 to handle subscribers directly
- * to your Smaily contacts via Contact Form 7 forms.
+ * The plugin bootstrap file
  *
- * @package Smaily_For_CF7
- * @author Smaily
- * @license GPL-3.0+
- * @link https://github.com/sendsmaily/smaily-cf7-plugin
- * @copyright 2020 Smaily
+ * This file is read by WordPress to generate the plugin information in the plugin
+ * admin area. This file also includes all of the dependencies used by the plugin,
+ * registers the activation and deactivation functions, and defines a function
+ * that starts the plugin.
+ *
+ * @link              https://github.com/sendsmaily/smaily-cf7-plugin
+ * @since             1.0.0
+ * @package           Smaily_For_CF7
  *
  * @wordpress-plugin
  * Plugin Name: Smaily for Contact Form 7
  * Plugin URI: https://github.com/sendsmaily/smaily-cf7-plugin
- * Description: Smaily email marketing and automation extension plugin for Contact Form 7. Integrate Contact Form 7 forms with Smaily credentials to add subscribers directly to Smaily newsletter.
+ * Description: Integrate Contact Form 7 form(s) with Smaily to add subscribers directly to Smaily and trigger marketing automations.
  * Version: 1.0.0
  * License: GPL3
  * Author: Smaily
