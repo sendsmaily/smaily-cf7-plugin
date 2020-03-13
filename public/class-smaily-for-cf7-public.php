@@ -111,7 +111,7 @@ class Smaily_For_CF7_Public {
 			return;
 		}
 		$posted_data         = $submission_instance->get_posted_data();
-		$smailyforcf7_option = get_option( 'smailyforcf7_' . $instance->id() );
+		$smailyforcf7_option = get_option( 'smailyforcf7_form_' . $instance->id() );
 		// Don't continue if no posted data or no saved credentials.
 		if ( empty( $posted_data ) || false === $smailyforcf7_option ) {
 			return;

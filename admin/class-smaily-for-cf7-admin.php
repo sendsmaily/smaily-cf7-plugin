@@ -94,7 +94,7 @@ class Smaily_For_CF7_Admin {
 		$autoresponder = isset( $_POST['smailyforcf7-autoresponder'] ) ? (int) $_POST['smailyforcf7-autoresponder'] : 0;
 		// Delete option here for clearing and unlinking credentials.
 		if ( empty( $sanitized['subdomain'] ) && empty( $sanitized['username'] ) && empty( $sanitized['password'] ) ) {
-			delete_option( 'smailyforcf7_' . $args->id() );
+			delete_option( 'smailyforcf7_form_' . $args->id() );
 			return;
 		}
 
@@ -117,7 +117,7 @@ class Smaily_For_CF7_Admin {
 			),
 			'autoresponder'   => $autoresponder,
 		);
-		update_option( 'smailyforcf7_' . $args->id(), $data_to_save );
+		update_option( 'smailyforcf7_form_' . $args->id(), $data_to_save );
 	}
 
 	/**
@@ -129,7 +129,7 @@ class Smaily_For_CF7_Admin {
 		$form_id = WPCF7_ContactForm::get_current()->id();
 
 		// Fetch saved Smaily CF7 option here to pass data along to view.
-		$smailyforcf7_option   = get_option( 'smailyforcf7_' . $form_id, array() );
+		$smailyforcf7_option   = get_option( 'smailyforcf7_form_' . $form_id, array() );
 		$smaily_credentials    = isset( $smailyforcf7_option['api-credentials'] ) ? $smailyforcf7_option['api-credentials'] : array();
 		$default_autoresponder = isset( $smailyforcf7_option['autoresponder'] ) ? $smailyforcf7_option['autoresponder'] : 0;
 
@@ -235,7 +235,7 @@ class Smaily_For_CF7_Admin {
 					),
 					'autoresponder'   => $autoresponder,
 				);
-				update_option( 'smailyforcf7_' . $form_id, $data_to_save );
+				update_option( 'smailyforcf7_form_' . $form_id, $data_to_save );
 				$response['message'] = esc_html__( 'Credentials valid', 'wp_smailyforcf7' );
 				break;
 			case 401:
@@ -259,8 +259,8 @@ class Smaily_For_CF7_Admin {
 		if ( ! current_user_can( 'wpcf7_delete_contact_form', $form_id ) ) {
 			wp_send_json( esc_html__( 'You do not have permission!', 'wp_smailyforcf7' ) );
 		}
-		if ( get_option( 'smailyforcf7_' . $form_id ) ) {
-			delete_option( 'smailyforcf7_' . $form_id );
+		if ( get_option( 'smailyforcf7_form_' . $form_id ) ) {
+			delete_option( 'smailyforcf7_form_' . $form_id );
 			wp_send_json( esc_html__( 'Credentials removed', 'wp_smailyforcf7' ) );
 		}
 		wp_send_json( esc_html__( 'No credentials to remove', 'wp_smailyforcf7' ) );
@@ -321,7 +321,7 @@ Consent to processing of personal data?
 	 * @return true
 	 */
 	public function disable_mail( $skip_mail, $contact_form ) {
-		if ( get_option( 'smailyforcf7_' . $contact_form->id() ) ) {
+		if ( get_option( 'smailyforcf7_form_' . $contact_form->id() ) ) {
 			return true;
 		}
 	}
