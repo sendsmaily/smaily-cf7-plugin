@@ -138,17 +138,8 @@ class Smaily_For_CF7_Admin {
 		$password  = isset( $smaily_credentials['password'] ) ? $smaily_credentials['password'] : null;
 
 		// Fetch autoresponder data here for view.
-		$response       = $this->verify_credentials( $subdomain, $username, $password );
+		$response       = $this->fetch_autoresponders( $subdomain, $username, $password );
 		$autoresponders = $response['autoresponders'];
-
-		$autoresponder_list = array();
-		if ( ! empty( $autoresponders ) ) {
-			foreach ( $autoresponders as $autoresponder ) {
-				if ( ! empty( $autoresponder['id'] ) && ! empty( $autoresponder['title'] ) ) {
-					$autoresponder_list[ $autoresponder['id'] ] = trim( $autoresponder['title'] );
-				}
-			}
-		}
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/smaily-for-cf7-admin-display.php';
 	}
 
@@ -178,17 +169,44 @@ class Smaily_For_CF7_Admin {
 	 * @param string $password Smaily API Password.
 	 * @return array $response
 	 */
-	public function verify_credentials( $subdomain, $username, $password ) {
+	public function fetch_autoresponders( $subdomain, $username, $password ) {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-smaily-for-cf7-request.php';
-		$request = ( new Smaily_For_CF7_Plugin_Request() )
+		$request = ( new Smaily_For_CF7_Request() )
 					->auth( $username, $password )
 					->setUrl( 'https://' . $subdomain . '.sendsmaily.net/api/workflows.php?trigger_type=form_submitted' )
 					->get();
 		if ( empty( $request ) ) {
-			return;
+			$response['code']    = 500;
+			$response['message'] = esc_html__( 'No response from Smaily', 'smaily-for-cf7' );
+			return $response;
 		}
-		$response['code']           = isset( $request['code'] ) ? (int) $request['code'] : 0;
+		$response['code'] = isset( $request['code'] ) ? (int) $request['code'] : 0;
+		switch ( $response['code'] ) {
+			case 200:
+				$response['message'] = esc_html__( 'Credentials valid', 'smaily-for-cf7' );
+				break;
+			case 401:
+				$response['message'] = esc_html__( 'Wrong credentials', 'smaily-for-cf7' );
+				break;
+			case 404:
+				$response['message'] = esc_html__( 'Error in subdomain', 'smaily-for-cf7' );
+				break;
+			default:
+				$response['message'] = esc_html__( 'Something went wrong', 'smaily-for-cf7' );
+				break;
+		}
 		$response['autoresponders'] = isset( $request['body'] ) ? $request['body'] : array();
+
+		if ( empty( $response['autoresponders'] ) ) {
+			return $response;
+		}
+		$autoresponder_list = array();
+		foreach ( $response['autoresponders'] as $autoresponder ) {
+			if ( ! empty( $autoresponder['id'] ) && ! empty( $autoresponder['title'] ) ) {
+				$autoresponder_list[ $autoresponder['id'] ] = trim( $autoresponder['title'] );
+			}
+		}
+		$response['autoresponders'] = $autoresponder_list;
 		return $response;
 	}
 
@@ -220,33 +238,21 @@ class Smaily_For_CF7_Admin {
 		}
 		$subdomain = $this->normalize_subdomain( $subdomain );
 		$sanitized = $this->sanitize_credentials( $subdomain, $username, $password );
-		$response  = $this->verify_credentials(
+		$response  = $this->fetch_autoresponders(
 			$sanitized['subdomain'],
 			$sanitized['username'],
 			$sanitized['password'],
 		);
-		switch ( (int) $response['code'] ) {
-			case 200:
-				$data_to_save = array(
-					'api-credentials' => array(
-						'subdomain' => $sanitized['subdomain'],
-						'username'  => $sanitized['username'],
-						'password'  => $sanitized['password'],
-					),
-					'autoresponder'   => $autoresponder,
-				);
-				update_option( 'smailyforcf7_form_' . $form_id, $data_to_save );
-				$response['message'] = esc_html__( 'Credentials valid', 'wp_smailyforcf7' );
-				break;
-			case 401:
-				$response['message'] = esc_html__( 'Wrong credentials', 'wp_smailyforcf7' );
-				break;
-			case 404:
-				$response['message'] = esc_html__( 'Error in subdomain', 'wp_smailyforcf7' );
-				break;
-			default:
-				$response['message'] = esc_html__( 'Something went wrong', 'wp_smailyforcf7' );
-				break;
+		if ( 200 === $response['code'] ) {
+			$data_to_save = array(
+				'api-credentials' => array(
+					'subdomain' => $sanitized['subdomain'],
+					'username'  => $sanitized['username'],
+					'password'  => $sanitized['password'],
+				),
+				'autoresponder'   => $autoresponder,
+			);
+			update_option( 'smailyforcf7_form_' . $form_id, $data_to_save );
 		}
 		wp_send_json( $response );
 	}
