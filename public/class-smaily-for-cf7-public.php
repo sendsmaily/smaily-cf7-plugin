@@ -125,7 +125,7 @@ class Smaily_For_CF7_Public {
 		$posted_tags   = $this->flatten_posted_tags( $posted_data );
 		// Union merging possible & posted tags. Posted tags overwrite possible tags.
 		$merged_tags = $posted_tags + $possible_tags;
-		$merged_tags = $this->remove_smaily_prefix( $merged_tags );
+		$merged_tags = $this->filter_smaily_fields( $merged_tags );
 		// To prevent having a duplicate field of lang_estonia and lang_естония.
 		foreach ( $merged_tags as $tag => $value ) {
 			$formatted_tags[ $this->format_field( $tag ) ] = $value;
@@ -139,7 +139,7 @@ class Smaily_For_CF7_Public {
 	 * @param array $posted_data All posted fields (e.g smaily-email).
 	 * @return array $smaily_fields Smaily fields (e.g email).
 	 */
-	public function remove_smaily_prefix( $posted_data ) {
+	public function filter_smaily_fields( $posted_data ) {
 		foreach ( $posted_data as $key => $value ) {
 			// Explode limit at 2 to prevent smaily-lang-choice from returning lang.
 			$exploded_tag = explode( '-', $key, 2 );
