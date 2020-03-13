@@ -10,24 +10,24 @@
 <h1 class='form-text text-muted' style='display:block;'>
 	<?php echo esc_html__( 'Saving credentials links current form to Smaily', 'wp_smailyforcf7' ); ?></h1>
 <div id='smailyforcf7-credentials-validated'>
-	<p id='smailyforcf7-credentials-error' class="smailyforcf7-response"
-		style="padding:15px; background-color:#f2dede; margin:0 0 10px; display: none;">
+	<p id='smailyforcf7-credentials-error' class='smailyforcf7-response'
+		style='padding:15px; background-color:#f2dede; margin:0 0 10px; display: none;'>
 	</p>
-	<p id='smailyforcf7-credentials-success' class="smailyforcf7-response"
-		style="padding:15px; background-color:#dff0d8; margin:0 0 10px; display: none;">
+	<p id='smailyforcf7-credentials-success' class='smailyforcf7-response'
+		style='padding:15px; background-color:#dff0d8; margin:0 0 10px; display: none;'>
 	</p>
 </div>
 <table class='form-table'>
 	<tbody>
 		<tr id='smailyforcf7-autoresponders' class='form-field' <?php if ( empty( $autoresponder_list ) ) : ?>
-			style="display: none;" <?php endif; ?>>
+			style='display: none;' <?php endif; ?>>
 			<th><?php echo esc_html__( 'Autoresponder', 'wp_smailyforcf7' ); ?></th>
 			<td>
-				<select id='smailyforcf7-autoresponder-select' name="smailyforcf7-autoresponder">
-					<option value=""><?php echo esc_html__( 'No autoresponder', 'wp_smailyforcf7' ); ?></option>
+				<select id='smailyforcf7-autoresponder-select' name='smailyforcf7-autoresponder-'>
+					<option value=''><?php echo esc_html__( 'No autoresponder', 'wp_smailyforcf7' ); ?></option>
 					<?php foreach ( $autoresponder_list as $autoresponder_id => $autoresponder_title ) : ?>
-					<option value="<?php echo esc_html( $autoresponder_id ); ?>"
-						<?php if ( $default_autoresponder === $autoresponder_id ) : ?> selected="selected"
+					<option value='<?php echo esc_html( $autoresponder_id ); ?>'
+						<?php if ( $default_autoresponder === $autoresponder_id ) : ?> selected='selected'
 						<?php endif; ?>>
 						<?php echo esc_html( $autoresponder_title ); ?>
 					</option>
