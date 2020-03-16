@@ -283,6 +283,14 @@ class Smaily_For_CF7_Admin {
 		wp_send_json( $response );
 	}
 
+	/**
+	 * Sanitize credentials
+	 *
+	 * @param [type] $subdomain Smaily API subdomain.
+	 * @param [type] $username Smaily API username.
+	 * @param [type] $password Smaily API password.
+	 * @return array $cleaned Cleaned variables in an array.
+	 */
 	public function sanitize_credentials( $subdomain, $username, $password ) {
 		$cleaned['subdomain'] = sanitize_text_field( wp_unslash( $subdomain ) );
 		$cleaned['username']  = sanitize_text_field( wp_unslash( $username ) );
