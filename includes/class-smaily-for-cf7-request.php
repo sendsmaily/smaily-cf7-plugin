@@ -19,25 +19,69 @@
  */
 class Smaily_For_CF7_Request {
 
+	/**
+	 * The URL endpoint for the request.
+	 *
+	 * @since    1.0.0
+	 * @access   protected
+	 * @var      string    $_url    The URL endpoint for the request.
+	 */
 	protected $_url = NULL;
 
+	/**
+	 * The data which is sent with the request.
+	 *
+	 * @since    1.0.0
+	 * @access   protected
+	 * @var      array    $_data    The data which is sent with the request.
+	 */
 	protected $_data = array();
 
+	/**
+	 * The Smaily API username.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 * @var      string    $_username    The Smaily API username.
+	 */
 	private $_username = NULL;
 
+	/**
+	 * The Smaily API password.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 * @var      string    $_password    The Smaily API password.
+	 */
 	private $_password = NULL;
 
+	/**
+	 * Set the username & password for authentication.
+	 *
+	 * @param string $username Smaily API username.
+	 * @param string $password Smaily API password.
+	 */
 	public function auth( $username, $password ) {
 		$this->_username = $username;
 		$this->_password = $password;
 		return $this;
 	}
 
+	/**
+	 * Set the URL endpoint for the request.
+	 *
+	 * @param string $url The URL endpoint.
+	 */
 	public function setUrl( $url ) {
 		$this->_url = $url;
 		return $this;
 	}
 
+	/**
+	 * Set the data which is sent with the request.
+	 *
+	 * @param array $data The data which is sent with the request.
+	 */
 	public function setData( array $data ) {
 		$this->_data = $data;
 		return $this;
