@@ -78,7 +78,7 @@ class Smaily_For_CF7_Admin {
 	 * @param WPCF7_ContactForm $args Arguments of form.
 	 */
 	public function save( $args ) {
-		$user_cant_edit = ! current_user_can( 'wpcf7_edit_contact_form', $args->id() );
+		$can_user_edit = current_user_can( 'wpcf7_edit_contact_form', $args->id() );
 
 		if ( empty( $_POST || $user_cant_edit ) ) {
 			return;
