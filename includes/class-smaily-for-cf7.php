@@ -124,7 +124,7 @@ class Smaily_For_CF7 {
 	 */
 	private function define_admin_hooks() {
 
-		$plugin_admin = new Smaily_For_CF7_Admin( $this->get_smaily_for_cf7(), $this->get_version() );
+		$plugin_admin = new Smaily_For_CF7_Admin( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
@@ -149,7 +149,7 @@ class Smaily_For_CF7 {
 	 */
 	private function define_public_hooks() {
 
-		$plugin_public = new Smaily_For_CF7_Public( $this->get_smaily_for_cf7(), $this->get_version() );
+		$plugin_public = new Smaily_For_CF7_Public( $this->get_plugin_name(), $this->get_version() );
 		$this->loader->add_action( 'wpcf7_submit', $plugin_public, 'submit', 10, 2 );
 
 	}
@@ -170,7 +170,7 @@ class Smaily_For_CF7 {
 	 * @since     1.0.0
 	 * @return    string    The name of the plugin.
 	 */
-	public function get_smaily_for_cf7() {
+	public function get_plugin_name() {
 		return $this->plugin_name;
 	}
 
