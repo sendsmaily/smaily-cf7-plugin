@@ -1,4 +1,14 @@
 (function( $ ) {
+	function getUrlParam(name) {
+		var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+			if (results == null) {
+				return null;
+			}
+			else {
+				return decodeURI(results[1]) || 0;
+			}
+
+	}
 	$(document).ready(function () {
 		$('#smailyforcf7_validate_credentials').click(function () {
 			$.post(smaily_for_cf7.ajax_url,
@@ -12,7 +22,7 @@
 				password: $('input[name="smailyforcf7[password]"]').val(),
 
 				// Can't use WPCF7_ContactForm in callback, get form (post) ID with Ajax.
-				form_id: $.getUrlParam('post'),
+				form_id: getUrlParam('post'),
 				// send the nonce along with the request
 				nonce: smaily_for_cf7.nonce
 			})
@@ -42,7 +52,7 @@
 				{
 					action: 'remove_credentials_callback',
 					// Can't use WPCF7_ContactForm in callback, get form (post) ID with Ajax.
-					form_id: $.getUrlParam('post'),
+					form_id: getUrlParam('post'),
 				},
 				function (result) {
 					if (result.code === 200) {
@@ -60,15 +70,5 @@
 			);
 			return false;
 		});
-
-		$.getUrlParam = function(name){
-			var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
-			if (results == null){
-			   return null;
-			}
-			else {
-			   return decodeURI(results[1]) || 0;
-			}
-		}
 	});
 })( jQuery );
