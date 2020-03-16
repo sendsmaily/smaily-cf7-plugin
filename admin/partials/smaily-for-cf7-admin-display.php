@@ -67,7 +67,8 @@
 			<th>
 				<input id='smailyforcf7_validate_credentials' type='button'
 					value='<?php echo esc_html__( 'Verify credentials', 'smaily-for-cf7' ); ?>' name='Submit'
-					class='button-primary' />
+					class='button-primary' <?php if ( ! isset( $_GET['post'] ) ) : ?> style='display: none;'
+					<?php endif; ?> />
 			</th>
 			<th>
 				<input id='smailyforcf7_remove_credentials' type='button'
