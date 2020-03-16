@@ -69,7 +69,7 @@ class Smaily_For_CF7_Public {
 	 * @param array $form_tags All Contact Form 7 tags in current form.
 	 * @return bool $simple_captcha_enabled
 	 */
-	public function search_for_cf7_captcha( $form_tags ) {
+	private function search_for_cf7_captcha( $form_tags ) {
 		// Check if Really Simple Captcha is actually enabled.
 		if ( ! class_exists( 'ReallySimpleCaptcha' ) ) {
 			return false;
@@ -144,7 +144,7 @@ class Smaily_For_CF7_Public {
 	 * @param array $posted_data All posted fields (e.g smaily-email).
 	 * @return array $smaily_fields Smaily fields (e.g email).
 	 */
-	public function filter_smaily_fields( $posted_data ) {
+	private function filter_smaily_fields( $posted_data ) {
 		$smaily_fields = array();
 		foreach ( $posted_data as $key => $value ) {
 			// Explode limit at 2 to prevent smaily-lang-choice from returning lang.
@@ -166,7 +166,7 @@ class Smaily_For_CF7_Public {
 	 * @param array $posted_tags Tags which may contain multiple values.
 	 * @return array $converted_tags Tags with no multiple values.
 	 */
-	public function flatten_posted_tags( $posted_tags ) {
+	private function flatten_posted_tags( $posted_tags ) {
 		$converted_tags = array();
 		foreach ( $posted_tags as $tag_name => $tag_values ) {
 			// If value is one-dimensional, don't alter it. Return it as it is.
@@ -189,7 +189,7 @@ class Smaily_For_CF7_Public {
 	 * @param array $form_tags All forms tags in the current form.
 	 * @return array $flattened_tags Flattened multiple value tags.
 	 */
-	public function get_only_flattened_form_tags( $form_tags ) {
+	private function get_only_flattened_form_tags( $form_tags ) {
 		$flattened_tags = array();
 		foreach ( $form_tags as $tag ) {
 			// Only want tags with multiple values (radio, checkbox).
@@ -209,7 +209,7 @@ class Smaily_For_CF7_Public {
 	 * @param string $unformatted_field "Лanгuaгe_Vene mõös" for example.
 	 * @return string $formatted_field language_venemoos
 	 */
-	public function format_field( $unformatted_field ) {
+	private function format_field( $unformatted_field ) {
 		$formatted_field = $this->transliterator->transliterate( $unformatted_field );
 		$formatted_field = trim( $formatted_field );
 		$formatted_field = strtolower( $formatted_field );
@@ -225,7 +225,7 @@ class Smaily_For_CF7_Public {
 	 * @param array $smaily_fields Fields to be sent to Smaily.
 	 * @param array $smailyforcf7_option Smaily credentials and autoresponder data.
 	 */
-	public function subscribe_post( $smaily_fields, $smailyforcf7_option ) {
+	private function subscribe_post( $smaily_fields, $smailyforcf7_option ) {
 		// If subdomain is empty, function can't send a valid post.
 		$subdomain = isset( $smailyforcf7_option['api-credentials']['subdomain'] )
 			? $smailyforcf7_option['api-credentials']['subdomain'] : '';
@@ -281,7 +281,7 @@ class Smaily_For_CF7_Public {
 	/**
 	 * Returns current URL
 	 */
-	public function current_url() {
+	private function current_url() {
 		$current_url = get_site_url( null, wp_unslash( $_SERVER['REQUEST_URI'] ) );
 		return $current_url;
 	}
@@ -291,7 +291,7 @@ class Smaily_For_CF7_Public {
 	 *
 	 * @param string $error_message The error message.
 	 */
-	public function set_wpcf7_error( $error_message ) {
+	private function set_wpcf7_error( $error_message ) {
 		add_filter(
 			'wpcf7_ajax_json_echo',
 			function ( $response ) use ( $error_message ) {

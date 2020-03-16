@@ -168,7 +168,7 @@ class Smaily_For_CF7_Admin {
 	 * @param string $password Smaily API Password.
 	 * @return array $response
 	 */
-	public function fetch_autoresponders( $subdomain, $username, $password ) {
+	private function fetch_autoresponders( $subdomain, $username, $password ) {
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-smaily-for-cf7-request.php';
 		$request = ( new Smaily_For_CF7_Request() )
 					->auth( $username, $password )
@@ -291,7 +291,7 @@ class Smaily_For_CF7_Admin {
 	 * @param [type] $password Smaily API password.
 	 * @return array $cleaned Cleaned variables in an array.
 	 */
-	public function sanitize_credentials( $subdomain, $username, $password ) {
+	private function sanitize_credentials( $subdomain, $username, $password ) {
 		$cleaned['subdomain'] = sanitize_text_field( wp_unslash( $subdomain ) );
 		$cleaned['username']  = sanitize_text_field( wp_unslash( $username ) );
 		$cleaned['password']  = sanitize_text_field( wp_unslash( $password ) );
@@ -360,7 +360,7 @@ Consent to processing of personal data?
 	 * @return string
 	 *   demo from demo.sendsmaily.net
 	 */
-	public function normalize_subdomain( $subdomain ) {
+	private function normalize_subdomain( $subdomain ) {
 		// First, try to parse as full URL.
 		// If that fails, try to parse as subdomain.sendsmaily.net.
 		// Last resort clean up subdomain and pass as is.
