@@ -80,7 +80,7 @@ class Smaily_For_CF7_Admin {
 	public function save( $args ) {
 		$can_user_edit = current_user_can( 'wpcf7_edit_contact_form', $args->id() );
 
-		if ( empty( $_POST || $user_cant_edit ) ) {
+		if ( empty( $_POST ) || ! $can_user_edit ) {
 			return;
 		}
 		// Validation and sanitization.
