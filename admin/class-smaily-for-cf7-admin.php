@@ -240,8 +240,8 @@ class Smaily_For_CF7_Admin {
 			wp_send_json( $response );
 		}
 
-		$subdomain = $this->normalize_subdomain( $subdomain );
 		$sanitized = $this->sanitize_credentials( $subdomain, $username, $password );
+		$sanitized['subdomain'] = $this->normalize_subdomain( $sanitized['subdomain'] );
 		$response  = $this->fetch_autoresponders(
 			$sanitized['subdomain'],
 			$sanitized['username'],
