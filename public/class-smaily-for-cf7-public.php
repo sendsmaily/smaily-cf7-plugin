@@ -210,8 +210,7 @@ class Smaily_For_CF7_Public {
 	 * @return string $formatted_field language_venemoos
 	 */
 	public function format_field( $unformatted_field ) {
-		$translit        = $this->transliterator;
-		$formatted_field = $translit->transliterate( $unformatted_field );
+		$formatted_field = $this->transliterator->transliterate( $unformatted_field );
 		$formatted_field = trim( $formatted_field );
 		$formatted_field = strtolower( $formatted_field );
 		$formatted_field = str_replace( array( '-', ' ' ), '_', $formatted_field );
