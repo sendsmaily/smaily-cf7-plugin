@@ -174,11 +174,14 @@ class Smaily_For_CF7_Admin {
 					->auth( $username, $password )
 					->setUrl( 'https://' . $subdomain . '.sendsmaily.net/api/workflows.php?trigger_type=form_submitted' )
 					->get();
+
+		$response = array();
 		if ( empty( $request ) ) {
 			$response['code']    = 500;
 			$response['message'] = esc_html__( 'No response from Smaily', 'smaily-for-cf7' );
 			return $response;
 		}
+
 		$response['code'] = isset( $request['code'] ) ? (int) $request['code'] : 0;
 		switch ( $response['code'] ) {
 			case 200:
