@@ -38,7 +38,7 @@
 		<tr class='form-field'>
 			<th><?php echo esc_html__( 'Subdomain', 'smaily-for-cf7' ); ?></th>
 			<td>
-				<input type='text' class='regular-text' name='smailyforcf7-subdomain' style='max-width:50%;'
+				<input type='text' class='regular-text' name='smailyforcf7[subdomain]' style='max-width:50%;'
 					value='<?php echo esc_html( $subdomain ); ?>' />
 				<small class='form-text text-muted' style='display:block;'>
 					For example <strong>'demo'</strong> from https://<strong>demo</strong>.sendsmaily.net/
@@ -48,14 +48,14 @@
 		<tr class='form-field'>
 			<th><?php echo esc_html__( 'Username', 'smaily-for-cf7' ); ?></th>
 			<td>
-				<input type='text' class='regular-text' name='smailyforcf7-username' style='max-width:50%;'
+				<input type='text' class='regular-text' name='smailyforcf7[username]' style='max-width:50%;'
 					value='<?php echo esc_html( $username ); ?>' />
 			</td>
 		</tr>
 		<tr class='form-field'>
 			<th><?php echo esc_html__( 'Password', 'smaily-for-cf7' ); ?></th>
 			<td>
-				<input type='password' class='regular-text' name='smailyforcf7-password' style='max-width:50%;'
+				<input type='password' class='regular-text' name='smailyforcf7[password]' style='max-width:50%;'
 					value='<?php echo esc_html( $password ); ?>' />
 			</td>
 		</tr>

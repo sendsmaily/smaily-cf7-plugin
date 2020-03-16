@@ -84,9 +84,9 @@ class Smaily_For_CF7_Admin {
 			return;
 		}
 		// Validation and sanitization.
-		$subdomain = isset( $_POST['smailyforcf7-subdomain'] ) ? trim( $_POST['smailyforcf7-subdomain'] ) : null;
-		$username  = isset( $_POST['smailyforcf7-username'] ) ? trim( $_POST['smailyforcf7-username'] ) : null;
-		$password  = isset( $_POST['smailyforcf7-password'] ) ? trim( $_POST['smailyforcf7-password'] ) : null;
+		$subdomain = isset( $_POST['smailyforcf7']['subdomain'] ) ? trim( $_POST['smailyforcf7']['subdomain'] ) : null;
+		$username  = isset( $_POST['smailyforcf7']['username'] ) ? trim( $_POST['smailyforcf7']['username'] ) : null;
+		$password  = isset( $_POST['smailyforcf7']['password'] ) ? trim( $_POST['smailyforcf7']['password'] ) : null;
 		$subdomain = $this->normalize_subdomain( $subdomain );
 		$sanitized = $this->sanitize_credentials( $subdomain, $username, $password );
 

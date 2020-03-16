@@ -7,9 +7,9 @@
 				action: 'verify_credentials_callback',
 
 				// vars
-				subdomain: $('input[name=smailyforcf7-subdomain]').val(),
-				username: $('input[name=smailyforcf7-username]').val(),
-				password: $('input[name=smailyforcf7-password]').val(),
+				subdomain: $('input[name="smailyforcf7[subdomain]"]').val(),
+				username: $('input[name="smailyforcf7[username]"]').val(),
+				password: $('input[name="smailyforcf7[password]"]').val(),
 
 				// Can't use WPCF7_ContactForm in callback, get form (post) ID with Ajax.
 				form_id: $.getUrlParam('post'),
@@ -48,9 +48,9 @@
 					if (result.code === 200) {
 						$('#smailyforcf7-credentials-success').text(result.message).show();
 						// Clear credentials
-						$('input[name=smailyforcf7-subdomain]').val('');
-						$('input[name=smailyforcf7-username]').val('');
-						$('input[name=smailyforcf7-password]').val('');
+						$('input[name="smailyforcf7[subdomain]"]').val('');
+						$('input[name="smailyforcf7[username]"]').val('');
+						$('input[name="smailyforcf7[password]"]').val('');
 						// User shouldn't be able to select autoresponder without credentials.
 						$('#smailyforcf7-autoresponders').hide();
 					} else {
