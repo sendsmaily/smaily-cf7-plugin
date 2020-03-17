@@ -234,15 +234,20 @@ class Smaily_For_CF7_Admin {
 		$password      = isset( $_POST['password'] ) ? trim( $_POST['password'] ) : null;
 		$autoresponder = isset( $_POST['autoresponder'] ) ? (int) $_POST['autoresponder'] : 0;
 
-		if ( empty( $subdomain ) || empty( $username ) || empty( $password ) ) {
+		$sanitized              = $this->sanitize_credentials( $subdomain, $username, $password );
+		$sanitized['subdomain'] = $this->normalize_subdomain( $sanitized['subdomain'] );
+
+		if (
+			empty( $sanitized['subdomain'] )
+			|| empty( $sanitized['username'] )
+			|| empty( $sanitized['password'] )
+		) {
 			$response['message'] = esc_html__( 'Please fill out all fields!', 'smaily-for-cf7' );
 			$response['code']    = 422;
 			wp_send_json( $response );
 		}
 
-		$sanitized = $this->sanitize_credentials( $subdomain, $username, $password );
-		$sanitized['subdomain'] = $this->normalize_subdomain( $sanitized['subdomain'] );
-		$response  = $this->fetch_autoresponders(
+		$response = $this->fetch_autoresponders(
 			$sanitized['subdomain'],
 			$sanitized['username'],
 			$sanitized['password'],
