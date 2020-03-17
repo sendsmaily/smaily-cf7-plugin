@@ -291,9 +291,9 @@ class Smaily_For_CF7_Admin {
 	/**
 	 * Sanitize credentials
 	 *
-	 * @param [type] $subdomain Smaily API subdomain.
-	 * @param [type] $username Smaily API username.
-	 * @param [type] $password Smaily API password.
+	 * @param string|null $subdomain Smaily API subdomain.
+	 * @param string|null $username Smaily API username.
+	 * @param string|null $password Smaily API password.
 	 * @return array $cleaned Cleaned variables in an array.
 	 */
 	private function sanitize_credentials( $subdomain, $username, $password ) {
