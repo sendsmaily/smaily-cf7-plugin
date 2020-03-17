@@ -7,6 +7,16 @@
  */
 
 ?>
+<?php if ( ! isset( $_GET['post'] ) ) : ?>
+<div id='form-id-unknown'>
+	<p id='smailyforcf7-form-id-error' style='padding:15px; background-color:#f2dede; margin:0 0 10px;'>
+		<?php echo esc_html__(
+			'Configuring Smaily integration is disabled when using "Add New Form". Please save this form or edit an already existing form',
+			'smaily-for-cf7'
+		); ?>
+	</p>
+</div>
+<?php else : ?>
 <h1 class='form-text text-muted' style='display:block;'>
 	<?php echo esc_html__( 'Saving credentials links current form to Smaily', 'smaily-for-cf7' ); ?></h1>
 <div id='smailyforcf7-credentials-validated'>
@@ -67,8 +77,7 @@
 			<th>
 				<input id='smailyforcf7_validate_credentials' type='button'
 					value='<?php echo esc_html__( 'Verify credentials', 'smaily-for-cf7' ); ?>' name='Submit'
-					class='button-primary' <?php if ( ! isset( $_GET['post'] ) ) : ?> style='display: none;'
-					<?php endif; ?> />
+					class='button-primary' />
 			</th>
 			<th>
 				<input id='smailyforcf7_remove_credentials' type='button'
@@ -78,3 +87,4 @@
 		</tr>
 	</tbody>
 </table>
+<?php endif; ?>
