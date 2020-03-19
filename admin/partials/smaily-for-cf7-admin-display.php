@@ -19,6 +19,10 @@
 <?php else : ?>
 <h1 class='form-text text-muted' style='display:block;'>
 	<?php echo esc_html__( 'Saving credentials links current form to Smaily', 'smaily-for-cf7' ); ?></h1>
+<p id='smailyforcf7-captcha-error'
+	style='padding:15px; background-color:#ffdf92; margin:0 0 10px; display:<?php echo $this->captcha_enabled ? 'none' : 'block'; ?>'>
+	<?php echo esc_html__( 'Captcha disabled. Please use a captcha if this is a public site.', 'smaily-for-cf7' ); ?>
+</p>
 <div id='smailyforcf7-credentials-validated'>
 	<p id='smailyforcf7-credentials-error' class='smailyforcf7-response'
 		style='padding:15px; background-color:#f2dede; margin:0 0 10px; display: none;'>

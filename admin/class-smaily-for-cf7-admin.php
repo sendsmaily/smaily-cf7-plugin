@@ -139,7 +139,53 @@ class Smaily_For_CF7_Admin {
 		// Fetch autoresponder data here for view.
 		$response           = $this->fetch_autoresponders( $subdomain, $username, $password );
 		$autoresponder_list = $response['autoresponders'];
+
+		$form_tags       = WPCF7_FormTagsManager::get_instance()->get_scanned_tags();
+		$captcha_enabled = $this->is_captcha_enabled( $form_tags );
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/smaily-for-cf7-admin-display.php';
+	}
+
+	/**
+	 * Search provided tags for Really Simple Captcha tags.
+	 *
+	 * Loops through all lists of tags until it finds 'basetype' key with value
+	 *  'captchac' or 'captchar'. If found, sets a var true and evaluates both for response.
+	 *
+	 * @param array $form_tags All Contact Form 7 tags in current form.
+	 * @return bool $simple_captcha_enabled
+	 */
+	private function search_for_cf7_captcha( $form_tags ) {
+		// Check if Really Simple Captcha is actually enabled.
+		if ( ! class_exists( 'ReallySimpleCaptcha' ) ) {
+			return false;
+		}
+		$has_captcha_image = false;
+		$has_captcha_input = false;
+		foreach ( (array) $form_tags as $tag ) {
+			foreach ( $tag as $key => $value ) {
+				if ( 'basetype' === $key && 'captchac' === $value ) {
+					$has_captcha_image = true;
+				} elseif ( 'basetype' === $key && 'captchar' === $value ) {
+					$has_captcha_input = true;
+				}
+			}
+		}
+		return ( $has_captcha_image && $has_captcha_input );
+	}
+
+	/**
+	 * Checks is either captcha is enabled.
+	 *
+	 * @param array $form_tags Tags in the current form.
+	 * @return boolean
+	 */
+	private function is_captcha_enabled( $form_tags ) {
+		$isset_captcha   = $this->search_for_cf7_captcha( $form_tags );
+		$isset_recaptcha = isset( get_option( 'wpcf7' )['recaptcha'] );
+		if ( $isset_captcha || $isset_recaptcha ) {
+			return true;
+		}
+		return false;
 	}
 
 	/**

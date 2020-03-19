@@ -61,34 +61,6 @@ class Smaily_For_CF7_Public {
 	}
 
 	/**
-	 * Search provided tags for Really Simple Captcha tags.
-	 *
-	 * Loops through all lists of tags until it finds 'basetype' key with value
-	 *  'captchac' or 'captchar'. If found, sets a var true and evaluates both for response.
-	 *
-	 * @param array $form_tags All Contact Form 7 tags in current form.
-	 * @return bool $simple_captcha_enabled
-	 */
-	private function search_for_cf7_captcha( $form_tags ) {
-		// Check if Really Simple Captcha is actually enabled.
-		if ( ! class_exists( 'ReallySimpleCaptcha' ) ) {
-			return false;
-		}
-		$has_captcha_image = false;
-		$has_captcha_input = false;
-		foreach ( (array) $form_tags as $tag ) {
-			foreach ( $tag as $key => $value ) {
-				if ( 'basetype' === $key && 'captchac' === $value ) {
-					$has_captcha_image = true;
-				} elseif ( 'basetype' === $key && 'captchar' === $value ) {
-					$has_captcha_input = true;
-				}
-			}
-		}
-		return ( $has_captcha_image && $has_captcha_input );
-	}
-
-	/**
 	 * Callback for wpcf7_submit hook
 	 * Is activated on submitting the form.
 	 *
