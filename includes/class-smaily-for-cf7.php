@@ -130,7 +130,6 @@ class Smaily_For_CF7 {
 
 		$this->loader->add_action( 'wpcf7_after_save', $plugin_admin, 'save' );
 		$this->loader->add_action( 'wpcf7_editor_panels', $plugin_admin, 'add_tab', -1 );
-		$this->loader->add_action( 'wpcf7_skip_mail', $plugin_admin, 'disable_mail', 10, 2 );
 
 		$this->loader->add_action( 'wp_ajax_verify_credentials_callback', $plugin_admin, 'verify_credentials_callback' );
 		$this->loader->add_action( 'wp_ajax_nopriv_verify_credentials_callback', $plugin_admin, 'verify_credentials_callback' );

@@ -304,19 +304,6 @@ class Smaily_For_CF7_Admin {
 	}
 
 	/**
-	 * Don't send mail if current form has Smaily credentials.
-	 *
-	 * @param bool              $skip_mail Set as true for no mail sending.
-	 * @param WPCF7_ContactForm $contact_form Submitted contact form.
-	 * @return true
-	 */
-	public function disable_mail( $skip_mail, $contact_form ) {
-		if ( get_option( 'smailyforcf7_form_' . $contact_form->id() ) ) {
-			return true;
-		}
-	}
-
-	/**
 	 * Normalize subdomain into the bare necessity.
 	 *
 	 * @param string $subdomain Messy subdomain.
