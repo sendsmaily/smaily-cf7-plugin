@@ -304,46 +304,6 @@ class Smaily_For_CF7_Admin {
 	}
 
 	/**
-	 * Replace Contact Form 7 default template with
-	 * an example of a Smaily Newsletter form including all supported features.
-	 *
-	 * @param string $template Current Contact Form 7 template.
-	 * @param string $prop tabs (e.g form, mail, mail_2, messages).
-	 * @return string $template Smaily's replaced template.
-	 */
-	public function replace_template( $template, $prop ) {
-		if ( 'form' === $prop ) {
-			$template = (
-			'
-<label> Your Name
-	[text smaily-name] </label>
-
-<label> Your Email
-	[email* smaily-email] </label>
-
-[hidden smaily-wordpress "True"]
-[checkbox smaily-language "Estonian" "English" "Russian"]
-Consent to processing of personal data?
-[radio smaily-gdpr default:1 "Yes" "No"]
-[submit "Subscribe to newsletter"]
-			'
-			);
-		}
-		// Default to disable sending mail.
-		if ( 'additional_settings' === $prop ) {
-			$template = (
-				'skip_mail: on'
-			);
-		}
-		// Default template has ['your-email'] in email template.
-		// This will cause configuration errors, even when mail is disabled.
-		if ( 'mail' === $prop ) {
-			$template = str_replace( '[your-email]', '[smaily-email]', $template );
-		}
-		return $template;
-	}
-
-	/**
 	 * Don't send mail if current form has Smaily credentials.
 	 *
 	 * @param bool              $skip_mail Set as true for no mail sending.
