@@ -68,19 +68,6 @@ class Smaily_For_CF7_Public {
 	 * @param array             $result Result of submit.
 	 */
 	public function submit( $instance, $result ) {
-		// Enforcing reCAPTCHA/Really Simple Captcha.
-		$form_tags       = WPCF7_FormTagsManager::get_instance()->get_scanned_tags();
-		$isset_captcha   = $this->search_for_cf7_captcha( $form_tags );
-		$isset_recaptcha = isset( get_option( 'wpcf7' )['recaptcha'] );
-		if ( ! $isset_captcha && ! $isset_recaptcha ) {
-			$error_message = esc_html__( 'No CAPTCHA detected.
-				Please use reCAPTCHA integration or add a Really Simple Captcha to this form',
-				'smaily-for-cf7',
-			);
-			$this->set_wpcf7_error( $error_message );
-			return;
-		}
-
 		// Check if Contact Form 7 validation has passed.
 		$submission_instance = WPCF7_Submission::get_instance();
 		if ( $submission_instance->get_status() !== 'mail_sent' ) {
