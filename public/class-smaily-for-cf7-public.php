@@ -81,64 +81,84 @@ class Smaily_For_CF7_Public {
 			return;
 		}
 
-		// Contact Form 7 doesn't output unclicked tags in $posted_data.
-		// Union merging possible & posted tags. Posted tags overwrite possible tags.
-		$form_tags     = $instance->scan_form_tags();
-		$possible_tags = $this->get_only_flattened_form_tags( $form_tags );
-		$posted_tags   = $this->flatten_posted_tags( $posted_data );
-		$merged_tags   = $posted_tags + $possible_tags;
-		$merged_tags   = $this->filter_smaily_fields( $merged_tags );
-
+		// Contact Form 7 doesn't output unclicked fields in $posted_data.
+		// Union merging possible & posted fields. Posted fields overwrite possible tags.
+		$form_tags       = $instance->scan_form_tags();
+		$possible_fields = $this->get_only_flattened_form_tags( $form_tags );
+		$posted_fields   = $this->flatten_posted_fields( $posted_data );
+		$posted_fields   = $this->filter_posted_fields( $form_tags, $posted_fields );
+		$merged_fields   = $posted_fields + $possible_fields;
+		// email-149 wont work. API needs pure 'email' field.
+		$merged_fields = $this->remove_email_field_suffixes( $merged_fields );
 		// To prevent having a duplicate field of lang_estonia and lang_естония.
-		$formatted_tags = array();
-		foreach ( $merged_tags as $tag => $value ) {
-			$formatted_tags[ $this->format_field( $tag ) ] = $value;
+		$formatted_fields = array();
+		foreach ( $merged_fields as $key => $value ) {
+			$formatted_fields[ $this->format_field( $key ) ] = $value;
 		}
-		$this->subscribe_post( $formatted_tags, $smailyforcf7_option );
+		$this->subscribe_post( $formatted_fields, $smailyforcf7_option );
 	}
 
 	/**
-	 * Remove smaily prefix from tags.
+	 * Filter out unnecessary fields which are posted.
 	 *
-	 * @param array $posted_data All posted fields (e.g smaily-email).
-	 * @return array $smaily_fields Smaily fields (e.g email).
+	 * @param array $all_tags All tags available.
+	 * @param array $fields Fields with skippable and cf7 default fields.
+	 * @return array $fields Fields missing skippable and cf7 fields.
 	 */
-	private function filter_smaily_fields( $posted_data ) {
-		$smaily_fields = array();
-		foreach ( $posted_data as $key => $value ) {
-			// Explode limit at 2 to prevent smaily-lang-choice from returning lang.
-			$exploded_tag = explode( '-', $key, 2 );
-			// Verify customfield has 'smaily' prefix, e.g "smaily-email".
-			if ( 'smaily' === $exploded_tag[0] ) {
-				// Save without prefix, e.g email.
-				$smaily_fields[ $exploded_tag[1] ] = $value;
+	private function filter_posted_fields( $all_tags, $fields ) {
+		foreach ( $all_tags as $key => $value ) {
+			if ( in_array( 'skip_smaily:on', $value['options'] ) ) {
+				unset( $fields[ $value['name'] ] );
 			}
 		}
-		return $smaily_fields;
+		foreach ( $fields as $key => $value ) {
+			if ( strpos( $key, '_wpcf7' ) !== false ) {
+				unset( $fields[ $key ] );
+			}
+		}
+		return $fields;
+	}
+
+	/**
+	 * Remove email field's suffixes from array.
+	 *
+	 * @param array $posted_data All posted fields (e.g email-149).
+	 * @return array $posted_data Same fields with email suffixes removed (e.g email).
+	 */
+	private function remove_email_field_suffixes( $posted_data ) {
+		foreach ( $posted_data as $key => $value ) {
+			if ( strpos( $key, 'email' ) !== false ) {
+				unset( $posted_data[ $key ] );
+				// Explode limit at 2 to prevent email-lang-choice from returning email-lang.
+				$exploded_field = explode( '-', $key, 2 );
+				$posted_data[ $exploded_field[0] ] = $value;
+			}
+		}
+		return $posted_data;
 	}
 
 	/**
 	 * Flatten multiple value elements.
-	 * If tags are in post data, they are selected. Therefore set them as true.
+	 * If fields are in post data, they are selected. Therefore set them as true.
 	 * Return single value elements as they were.
 	 *
-	 * @param array $posted_tags Tags which may contain multiple values.
-	 * @return array $converted_tags Tags with no multiple values.
+	 * @param array $posted_fields Fields which may contain multiple values.
+	 * @return array $converted_fields Fields with no multiple values.
 	 */
-	private function flatten_posted_tags( $posted_tags ) {
-		$converted_tags = array();
-		foreach ( $posted_tags as $tag_name => $tag_values ) {
+	private function flatten_posted_fields( $posted_fields ) {
+		$converted_fields = array();
+		foreach ( $posted_fields as $field_name => $field_values ) {
 			// If value is one-dimensional, don't alter it. Return it as it is.
-			if ( ! is_array( $tag_values ) ) {
-				$converted_tags[ $tag_name ] = $tag_values;
+			if ( ! is_array( $field_values ) ) {
+				$converted_fields[ $field_name ] = $field_values;
 				continue;
 			}
-			foreach ( $tag_values as $tag_value ) {
+			foreach ( $field_values as $field_value ) {
 				// Contact Form 7 only posts selected (true) values.
-				$converted_tags[ $tag_name . '_' . strtolower( $tag_value ) ] = '1';
+				$converted_fields[ $field_name . '_' . strtolower( $field_value ) ] = '1';
 			}
 		}
-		return $converted_tags;
+		return $converted_fields;
 	}
 
 	/**
@@ -153,6 +173,9 @@ class Smaily_For_CF7_Public {
 		foreach ( $form_tags as $tag ) {
 			// Only want tags with multiple values (radio, checkbox).
 			if ( 2 > count( $tag['values'] ) ) {
+				continue;
+			}
+			if ( in_array( 'skip_smaily:on', $tag['options'] ) ) {
 				continue;
 			}
 			foreach ( $tag['values'] as $tag_value ) {
