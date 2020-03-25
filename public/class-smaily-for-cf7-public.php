@@ -190,9 +190,9 @@ class Smaily_For_CF7_Public {
 		// If subdomain is empty, function can't send a valid post.
 		$subdomain = isset( $smailyforcf7_option['api-credentials']['subdomain'] )
 			? $smailyforcf7_option['api-credentials']['subdomain'] : '';
-		$username = isset( $smailyforcf7_option['api-credentials']['username'] )
+		$username  = isset( $smailyforcf7_option['api-credentials']['username'] )
 			? $smailyforcf7_option['api-credentials']['username'] : '';
-		$password = isset( $smailyforcf7_option['api-credentials']['password'] )
+		$password  = isset( $smailyforcf7_option['api-credentials']['password'] )
 			? $smailyforcf7_option['api-credentials']['password'] : '';
 
 		if ( empty( $subdomain ) || empty( $username ) || empty( $password ) ) {
