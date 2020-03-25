@@ -81,15 +81,34 @@ class Smaily_For_CF7_Public {
 			return;
 		}
 
+		$disallowed_tag_types = array( 'submit' );
+		$smaily_fields        = array();
+		foreach ( $instance->scan_form_tags() as &$tag ) {
+			$is_allowed_type = in_array( $tag->basetype, $disallowed_tag_types ) === false;
+			$skip_smaily     = strtolower( $tag->get_option( 'skip_smaily', '', true ) ) === 'on';
+			if ( ! $is_allowed_type || $skip_smaily ) {
+				continue;
+			}
+
+			$is_email_field = ( 'email' === $tag->basetype );
+			$is_posted_tag  = array_key_exists( $tag->name, $posted_data );
+			// Replace email's name variations with just 'email'.
+			// email-149 wont work. API needs pure 'email' field.
+			if ( $is_email_field && $is_posted_tag ) {
+				$posted_data['email'] = $posted_data[ $tag->name ];
+				unset( $posted_data[ $tag->name ] );
+				$tag->name = 'email';
+			}
+			$smaily_fields[ $tag->name ] = $tag;
+		}
+
 		// Contact Form 7 doesn't output unclicked fields in $posted_data.
-		// Union merging possible & posted fields. Posted fields overwrite possible tags.
-		$form_tags       = $instance->scan_form_tags();
-		$possible_fields = $this->get_only_flattened_form_tags( $form_tags );
+		$possible_fields = $this->flatten_form_tags( $smaily_fields );
 		$posted_fields   = $this->flatten_posted_fields( $posted_data );
-		$posted_fields   = $this->filter_posted_fields( $form_tags, $posted_fields );
-		$merged_fields   = $posted_fields + $possible_fields;
-		// email-149 wont work. API needs pure 'email' field.
-		$merged_fields = $this->remove_email_field_suffixes( $merged_fields );
+		// Isolate elements of posted fields that are also in possible fields.
+		// Replace possible fields' values with posted fields.
+		$merged_fields = array_merge( $possible_fields, array_intersect_key( $posted_fields, $possible_fields ) );
+
 		// To prevent having a duplicate field of lang_estonia and lang_естония.
 		$formatted_fields = array();
 		foreach ( $merged_fields as $key => $value ) {
@@ -99,48 +118,10 @@ class Smaily_For_CF7_Public {
 	}
 
 	/**
-	 * Filter out unnecessary fields which are posted.
-	 *
-	 * @param array $all_tags All tags available.
-	 * @param array $fields Fields with skippable and cf7 default fields.
-	 * @return array $fields Fields missing skippable and cf7 fields.
-	 */
-	private function filter_posted_fields( $all_tags, $fields ) {
-		foreach ( $all_tags as $key => $value ) {
-			if ( in_array( 'skip_smaily:on', $value['options'] ) ) {
-				unset( $fields[ $value['name'] ] );
-			}
-		}
-		foreach ( $fields as $key => $value ) {
-			if ( strpos( $key, '_wpcf7' ) !== false ) {
-				unset( $fields[ $key ] );
-			}
-		}
-		return $fields;
-	}
-
-	/**
-	 * Remove email field's suffixes from array.
-	 *
-	 * @param array $posted_data All posted fields (e.g email-149).
-	 * @return array $posted_data Same fields with email suffixes removed (e.g email).
-	 */
-	private function remove_email_field_suffixes( $posted_data ) {
-		foreach ( $posted_data as $key => $value ) {
-			if ( strpos( $key, 'email' ) !== false ) {
-				unset( $posted_data[ $key ] );
-				// Explode limit at 2 to prevent email-lang-choice from returning email-lang.
-				$exploded_field = explode( '-', $key, 2 );
-				$posted_data[ $exploded_field[0] ] = $value;
-			}
-		}
-		return $posted_data;
-	}
-
-	/**
-	 * Flatten multiple value elements.
+	 * Flatten posted fields.
 	 * If fields are in post data, they are selected. Therefore set them as true.
 	 * Return single value elements as they were.
+	 * Return multiple value elements with key_value => 1
 	 *
 	 * @param array $posted_fields Fields which may contain multiple values.
 	 * @return array $converted_fields Fields with no multiple values.
@@ -162,20 +143,18 @@ class Smaily_For_CF7_Public {
 	}
 
 	/**
-	 * Flatten only multiple value tags.
+	 * Flatten tags to format [name => 0]
+	 * Multiple value tags return [name_value => 0]
 	 * Don't know if clicked so set their value as 0.
 	 *
 	 * @param array $form_tags All forms tags in the current form.
 	 * @return array $flattened_tags Flattened multiple value tags.
 	 */
-	private function get_only_flattened_form_tags( $form_tags ) {
+	private function flatten_form_tags( $form_tags ) {
 		$flattened_tags = array();
 		foreach ( $form_tags as $tag ) {
-			// Only want tags with multiple values (radio, checkbox).
 			if ( 2 > count( $tag['values'] ) ) {
-				continue;
-			}
-			if ( in_array( 'skip_smaily:on', $tag['options'] ) ) {
+				$flattened_tags[ $tag['name'] ] = '0';
 				continue;
 			}
 			foreach ( $tag['values'] as $tag_value ) {
