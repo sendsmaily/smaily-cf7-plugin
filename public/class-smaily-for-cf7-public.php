@@ -84,7 +84,7 @@ class Smaily_For_CF7_Public {
 		$disallowed_tag_types = array( 'submit' );
 		$smaily_fields        = array();
 		foreach ( $instance->scan_form_tags() as &$tag ) {
-			$is_allowed_type = in_array( $tag->basetype, $disallowed_tag_types ) === false;
+			$is_allowed_type = in_array( $tag->basetype, $disallowed_tag_types, true ) === false;
 			$skip_smaily     = strtolower( $tag->get_option( 'skip_smaily', '', true ) ) === 'on';
 			if ( ! $is_allowed_type || $skip_smaily ) {
 				continue;
@@ -119,7 +119,7 @@ class Smaily_For_CF7_Public {
 
 	/**
 	 * Flatten posted fields.
-	 * If fields are in post data, they are selected. Therefore set them as true.
+	 * If non-empty fields are in post data, they are selected. Therefore set them as true.
 	 * Return single value elements as they were.
 	 * Return multiple value elements with key_value => 1
 	 *
@@ -135,6 +135,9 @@ class Smaily_For_CF7_Public {
 				continue;
 			}
 			foreach ( $field_values as $field_value ) {
+				if ( empty( $field_value ) ) {
+					continue;
+				}
 				// Contact Form 7 only posts selected (true) values.
 				$converted_fields[ $field_name . '_' . strtolower( $field_value ) ] = '1';
 			}
@@ -143,9 +146,10 @@ class Smaily_For_CF7_Public {
 	}
 
 	/**
-	 * Flatten tags to format [name => 0]
-	 * Multiple value tags return [name_value => 0]
-	 * Don't know if clicked so set their value as 0.
+	 * Reduce WPCF7_FormTag object to single array with tags and their default or 0 values.
+	 *
+	 * Single value tags return [name => 0]
+	 * Multiple value tags (checkbox, select menu, radio) return [name_value => 0]
 	 *
 	 * @param array $form_tags All forms tags in the current form.
 	 * @return array $flattened_tags Flattened multiple value tags.
@@ -153,13 +157,27 @@ class Smaily_For_CF7_Public {
 	private function flatten_form_tags( $form_tags ) {
 		$flattened_tags = array();
 		foreach ( $form_tags as $tag ) {
-			if ( 2 > count( $tag['values'] ) ) {
-				$flattened_tags[ $tag['name'] ] = '0';
+			$name   = $tag['name'];
+			$values = $tag['values'];
+
+			$has_multiple_options   = $tag->has_option( 'multiple' );
+			$is_drop_down_menu      = 'select' === $tag->basetype && ! $has_multiple_options;
+			$is_single_option_radio = 'radio' === $tag->basetype && count( $values ) === 1;
+
+			// Drop down menu posts a single value, select menu posts an array.
+			// If only one option prefer format 'radio = yes' over 'radio_yes = 1'.
+			if ( $is_drop_down_menu || $is_single_option_radio ) {
+				$flattened_tags[ $name ] = $values[0];
 				continue;
 			}
-			foreach ( $tag['values'] as $tag_value ) {
-				$flattened_tags[ $tag['name'] . '_' . strtolower( $tag_value ) ] = '0';
+
+			if ( ! empty( $values ) ) {
+				foreach ( $values as $tag_value ) {
+					$flattened_tags[ $name . '_' . strtolower( $tag_value ) ] = '0';
+				}
+				continue;
 			}
+			$flattened_tags[ $name ] = '0';
 		}
 		return $flattened_tags;
 	}
