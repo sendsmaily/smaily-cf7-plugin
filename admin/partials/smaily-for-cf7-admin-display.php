@@ -60,14 +60,14 @@
 			</td>
 		</tr>
 		<tr class='form-field'>
-			<th><?php echo esc_html__( 'Username', 'smaily-for-cf7' ); ?></th>
+			<th><?php echo esc_html__( 'API Username', 'smaily-for-cf7' ); ?></th>
 			<td>
 				<input type='text' class='regular-text' name='smailyforcf7[username]' style='max-width:50%;'
 					value='<?php echo esc_html( $username ); ?>' />
 			</td>
 		</tr>
 		<tr class='form-field'>
-			<th><?php echo esc_html__( 'Password', 'smaily-for-cf7' ); ?></th>
+			<th><?php echo esc_html__( 'API Password', 'smaily-for-cf7' ); ?></th>
 			<td>
 				<input type='password' class='regular-text' name='smailyforcf7[password]' style='max-width:50%;'
 					value='<?php echo esc_html( $password ); ?>' />
