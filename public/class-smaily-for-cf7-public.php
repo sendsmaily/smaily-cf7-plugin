@@ -82,104 +82,41 @@ class Smaily_For_CF7_Public {
 		}
 
 		$disallowed_tag_types = array( 'submit' );
-		$smaily_fields        = array();
-		foreach ( $instance->scan_form_tags() as &$tag ) {
+		$payload              = array();
+		foreach ( $instance->scan_form_tags() as $tag ) {
 			$is_allowed_type = in_array( $tag->basetype, $disallowed_tag_types, true ) === false;
 			$skip_smaily     = strtolower( $tag->get_option( 'skip_smaily', '', true ) ) === 'on';
 			if ( ! $is_allowed_type || $skip_smaily ) {
 				continue;
 			}
 
-			$is_email_field = ( 'email' === $tag->basetype );
-			$is_posted_tag  = array_key_exists( $tag->name, $posted_data );
-			// Replace email's name variations with just 'email'.
-			// email-149 wont work. API needs pure 'email' field.
-			if ( $is_email_field && $is_posted_tag ) {
-				$posted_data['email'] = $posted_data[ $tag->name ];
-				unset( $posted_data[ $tag->name ] );
-				$tag->name = 'email';
+			$posted_value = isset( $posted_data[ $tag->name ] ) ? $posted_data[ $tag->name ] : null;
+
+			$is_single_option_menu  = $tag->basetype === 'select' && ! $tag->has_option( 'multiple' );
+			$is_single_option_radio = $tag->basetype === 'radio' && count( $tag->values ) === 1;
+
+			// Email field should always be named email.
+			if ( $tag->basetype === 'email' ) {
+				$payload['email'] = ! is_null( $posted_value ) ? $posted_value : '';
 			}
-			$smaily_fields[ $tag->name ] = $tag;
-		}
-
-		// Contact Form 7 doesn't output unclicked fields in $posted_data.
-		$possible_fields = $this->flatten_form_tags( $smaily_fields );
-		$posted_fields   = $this->flatten_posted_fields( $posted_data );
-		// Isolate elements of posted fields that are also in possible fields.
-		// Replace possible fields' values with posted fields.
-		$merged_fields = array_merge( $possible_fields, array_intersect_key( $posted_fields, $possible_fields ) );
-
-		// To prevent having a duplicate field of lang_estonia and lang_естония.
-		$formatted_fields = array();
-		foreach ( $merged_fields as $key => $value ) {
-			$formatted_fields[ $this->format_field( $key ) ] = $value;
-		}
-		$this->subscribe_post( $formatted_fields, $smailyforcf7_option );
-	}
-
-	/**
-	 * Flatten posted fields.
-	 * If non-empty fields are in post data, they are selected. Therefore set them as true.
-	 * Return single value elements as they were.
-	 * Return multiple value elements with key_value => 1
-	 *
-	 * @param array $posted_fields Fields which may contain multiple values.
-	 * @return array $converted_fields Fields with no multiple values.
-	 */
-	private function flatten_posted_fields( $posted_fields ) {
-		$converted_fields = array();
-		foreach ( $posted_fields as $field_name => $field_values ) {
-			// If value is one-dimensional, don't alter it. Return it as it is.
-			if ( ! is_array( $field_values ) ) {
-				$converted_fields[ $field_name ] = $field_values;
-				continue;
+			// Single option dropdown menu and radio button can only have one value.
+			elseif ( $is_single_option_radio || $is_single_option_menu ) {
+				$payload[ $this->format_field( $tag->name ) ] = $tag->values[0];
 			}
-			foreach ( $field_values as $field_value ) {
-				if ( empty( $field_value ) ) {
-					continue;
+			// Tags with multiple options need to have default values, because browsers do not send values of unchecked inputs.
+			elseif ( $tag->basetype === 'select' || $tag->basetype === 'radio' || $tag->basetype === 'checkbox' ) {
+				foreach ( $tag->values as $value ) {
+					$is_selected = is_array( $posted_value ) ? in_array( $value, $posted_value, true ) : false;
+					$payload[ $this->format_field( $tag->name . '_' . $value ) ] = $is_selected ? '1' : '0';
 				}
-				// Contact Form 7 only posts selected (true) values.
-				$converted_fields[ $field_name . '_' . strtolower( $field_value ) ] = '1';
+			}
+			// Pass rest of the tag values as is.
+			else {
+				$payload[ $this->format_field( $tag->name ) ] = ! is_null( $posted_value ) ? $posted_value : '';
 			}
 		}
-		return $converted_fields;
-	}
 
-	/**
-	 * Reduce WPCF7_FormTag object to single array with tags and their default or 0 values.
-	 *
-	 * Single value tags return [name => 0]
-	 * Multiple value tags (checkbox, select menu, radio) return [name_value => 0]
-	 *
-	 * @param array $form_tags All forms tags in the current form.
-	 * @return array $flattened_tags Flattened multiple value tags.
-	 */
-	private function flatten_form_tags( $form_tags ) {
-		$flattened_tags = array();
-		foreach ( $form_tags as $tag ) {
-			$name   = $tag['name'];
-			$values = $tag['values'];
-
-			$has_multiple_options   = $tag->has_option( 'multiple' );
-			$is_drop_down_menu      = 'select' === $tag->basetype && ! $has_multiple_options;
-			$is_single_option_radio = 'radio' === $tag->basetype && count( $values ) === 1;
-
-			// Drop down menu posts a single value, select menu posts an array.
-			// If only one option prefer format 'radio = yes' over 'radio_yes = 1'.
-			if ( $is_drop_down_menu || $is_single_option_radio ) {
-				$flattened_tags[ $name ] = $values[0];
-				continue;
-			}
-
-			if ( ! empty( $values ) ) {
-				foreach ( $values as $tag_value ) {
-					$flattened_tags[ $name . '_' . strtolower( $tag_value ) ] = '0';
-				}
-				continue;
-			}
-			$flattened_tags[ $name ] = '0';
-		}
-		return $flattened_tags;
+		$this->subscribe_post( $payload, $smailyforcf7_option );
 	}
 
 	/**
