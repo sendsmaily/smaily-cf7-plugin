@@ -18,7 +18,7 @@
 </div>
 <?php else : ?>
 <h1 class='form-text text-muted' style='display:block;'>
-	<?php echo esc_html__( 'Saving credentials links current form to Smaily', 'smaily-for-cf7' ); ?></h1>
+	<?php echo esc_html__( 'Connect form with Smaily', 'smaily-for-cf7' ); ?></h1>
 <p id='smailyforcf7-captcha-error'
 	style='padding:15px; background-color:#ffdf92; margin:0 0 10px; display:<?php echo $this->captcha_enabled ? 'none' : 'block'; ?>'>
 	<?php echo esc_html__( 'Captcha disabled. Please use a captcha if this is a public site.', 'smaily-for-cf7' ); ?>
@@ -60,14 +60,14 @@
 			</td>
 		</tr>
 		<tr class='form-field'>
-			<th><?php echo esc_html__( 'Username', 'smaily-for-cf7' ); ?></th>
+			<th><?php echo esc_html__( 'API Username', 'smaily-for-cf7' ); ?></th>
 			<td>
 				<input type='text' class='regular-text' name='smailyforcf7[username]' style='max-width:50%;'
 					value='<?php echo esc_html( $username ); ?>' />
 			</td>
 		</tr>
 		<tr class='form-field'>
-			<th><?php echo esc_html__( 'Password', 'smaily-for-cf7' ); ?></th>
+			<th><?php echo esc_html__( 'API Password', 'smaily-for-cf7' ); ?></th>
 			<td>
 				<input type='password' class='regular-text' name='smailyforcf7[password]' style='max-width:50%;'
 					value='<?php echo esc_html( $password ); ?>' />
