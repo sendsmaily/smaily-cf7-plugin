@@ -17,24 +17,10 @@
 	</p>
 </div>
 <?php else : ?>
-<h1 class='form-text text-muted' style='display:block;'>
-	<?php echo esc_html__( 'Connect form with Smaily', 'smaily-for-cf7' ); ?></h1>
-<p id='smailyforcf7-captcha-error'
-	style='padding:15px; background-color:#ffdf92; margin:0 0 10px; display:<?php echo $this->captcha_enabled ? 'none' : 'block'; ?>'>
-	<?php echo esc_html__( 'Captcha disabled. Please use a captcha if this is a public site.', 'smaily-for-cf7' ); ?>
-</p>
-<div id='smailyforcf7-credentials-validated'>
-	<p id='smailyforcf7-credentials-error' class='smailyforcf7-response'
-		style='padding:15px; background-color:#f2dede; margin:0 0 10px; display: none;'>
-	</p>
-	<p id='smailyforcf7-credentials-success' class='smailyforcf7-response'
-		style='padding:15px; background-color:#dff0d8; margin:0 0 10px; display: none;'>
-	</p>
-</div>
-<table class='form-table'>
-	<tbody>
-		<tr id='smailyforcf7-autoresponders' class='form-field' <?php if ( empty( $autoresponder_list ) ) : ?>
-			style='display: none;' <?php endif; ?>>
+<div id='smailyforcf7-credentials-valid' style='display:<?php echo $are_credentials_valid ? 'block' : 'none'; ?>'>
+	<span  style='margin:15px;'><?php echo esc_html__( 'Your API credentials are valid', 'smaily-for-cf7' ); ?></span></br>
+	<table class='autoresponders-table' style="margin:15px">
+		<tr id='smailyforcf7-autoresponders' class='form-field'>
 			<th><?php echo esc_html__( 'Autoresponder', 'smaily-for-cf7' ); ?></th>
 			<td>
 				<select id='smailyforcf7-autoresponder-select' name='smailyforcf7-autoresponder'>
@@ -48,47 +34,60 @@
 					<?php endforeach; ?>
 				</select>
 			</td>
-		</tr>
-		<tr class='form-field'>
-			<th><?php echo esc_html__( 'Subdomain', 'smaily-for-cf7' ); ?></th>
-			<td>
-				<input type='text' class='regular-text' name='smailyforcf7[subdomain]' style='max-width:50%;'
-					value='<?php echo esc_html( $subdomain ); ?>' />
-				<small class='form-text text-muted' style='display:block;'>
-					For example <strong>'demo'</strong> from https://<strong>demo</strong>.sendsmaily.net/
-				</small>
-			</td>
-		</tr>
-		<tr class='form-field'>
-			<th><?php echo esc_html__( 'API Username', 'smaily-for-cf7' ); ?></th>
-			<td>
-				<input type='text' class='regular-text' name='smailyforcf7[username]' style='max-width:50%;'
-					value='<?php echo esc_html( $username ); ?>' />
-			</td>
-		</tr>
-		<tr class='form-field'>
-			<th><?php echo esc_html__( 'API Password', 'smaily-for-cf7' ); ?></th>
-			<td>
-				<input type='password' class='regular-text' name='smailyforcf7[password]' style='max-width:50%;'
-					value='<?php echo esc_html( $password ); ?>' />
-			</td>
-		</tr>
-	</tbody>
-</table>
-<table>
-	<tbody>
-		<tr class='button-field'>
-			<th>
-				<input id='smailyforcf7_validate_credentials' type='button'
-					value='<?php echo esc_html__( 'Verify credentials', 'smaily-for-cf7' ); ?>' name='Submit'
-					class='button-primary' />
-			</th>
-			<th>
-				<input id='smailyforcf7_remove_credentials' type='button'
-					value='<?php echo esc_html__( 'Reset credentials', 'smaily-for-cf7' ); ?>' name='Clear'
-					class='button' />
 			</th>
 		</tr>
-	</tbody>
-</table>
+	</table>
+	<input id='smailyforcf7_remove_credentials' type='button' style="margin:15px"
+		value='<?php echo esc_html__( 'Reset credentials', 'smaily-for-cf7' ); ?>' name='Clear' class='button' />
+</div>
+<div id='smailyforcf7-credentials-invalidated' style='display:<?php echo $are_credentials_valid ? 'none' : 'block'; ?>'>
+	<h1 class='form-text text-muted' style='display:block;'>
+		<?php echo esc_html__( 'Connect form with Smaily', 'smaily-for-cf7' ); ?></h1>
+	<p id='smailyforcf7-captcha-error'
+		style='padding:15px; background-color:#ffdf92; margin:0 0 10px; display:<?php echo $captcha_enabled ? 'none' : 'block'; ?>'>
+		<?php echo esc_html__( 'Captcha disabled. Please use a captcha if this is a public site.', 'smaily-for-cf7' ); ?>
+	</p>
+	<p id='smailyforcf7-credentials-error' class='smailyforcf7-response'
+			style='padding:15px; background-color:#f2dede; margin:0 0 10px; display: none;'>
+		</p>
+	<table class='form-table'>
+		<tbody>
+			<tr class='form-field'>
+				<th><?php echo esc_html__( 'Subdomain', 'smaily-for-cf7' ); ?></th>
+				<td>
+					<input type='text' class='regular-text' name='smailyforcf7[subdomain]' style='max-width:50%;'
+						value='<?php echo esc_html( $subdomain ); ?>' />
+					<small class='form-text text-muted' style='display:block;'>
+						For example <strong>'demo'</strong> from https://<strong>demo</strong>.sendsmaily.net/
+					</small>
+				</td>
+			</tr>
+			<tr class='form-field'>
+				<th><?php echo esc_html__( 'API Username', 'smaily-for-cf7' ); ?></th>
+				<td>
+					<input type='text' class='regular-text' name='smailyforcf7[username]' style='max-width:50%;'
+						value='<?php echo esc_html( $username ); ?>' />
+				</td>
+			</tr>
+			<tr class='form-field'>
+				<th><?php echo esc_html__( 'API Password', 'smaily-for-cf7' ); ?></th>
+				<td>
+					<input type='password' class='regular-text' name='smailyforcf7[password]' style='max-width:50%;'
+						value='<?php echo esc_html( $password ); ?>' />
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<table>
+		<tbody>
+			<tr class='button-field'>
+				<th>
+					<input id='smailyforcf7_validate_credentials' type='button'
+						value='<?php echo esc_html__( 'Verify credentials', 'smaily-for-cf7' ); ?>' name='Submit'
+						class='button-primary' />
+				</th>
+			</tr>
+		</tbody>
+	</table>
+</div>
 <?php endif; ?>

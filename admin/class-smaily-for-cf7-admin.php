@@ -142,6 +142,8 @@ class Smaily_For_CF7_Admin {
 
 		$form_tags       = WPCF7_FormTagsManager::get_instance()->get_scanned_tags();
 		$captcha_enabled = $this->is_captcha_enabled( $form_tags );
+
+		$are_credentials_valid = 200 === $response['code'];
 		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/smaily-for-cf7-admin-display.php';
 	}
 
