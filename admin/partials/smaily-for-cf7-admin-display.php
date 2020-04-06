@@ -19,7 +19,7 @@
 <?php else : ?>
 <div id='smailyforcf7-credentials-valid' style='display:<?php echo $are_credentials_valid ? 'block' : 'none'; ?>'>
 	<span  style='margin:15px;'><?php echo esc_html__( 'Your API credentials are valid', 'smaily-for-cf7' ); ?></span></br>
-	<table class='autoresponders-table' style="margin:15px">
+	<table class='autoresponders-table' style='margin:15px'>
 		<tr id='smailyforcf7-autoresponders' class='form-field'>
 			<th><?php echo esc_html__( 'Autoresponder', 'smaily-for-cf7' ); ?></th>
 			<td>
@@ -37,7 +37,7 @@
 			</th>
 		</tr>
 	</table>
-	<input id='smailyforcf7_remove_credentials' type='button' style="margin:15px"
+	<input id='smailyforcf7_remove_credentials' type='button' style='margin:15px'
 		value='<?php echo esc_html__( 'Reset credentials', 'smaily-for-cf7' ); ?>' name='Clear' class='button' />
 </div>
 <div id='smailyforcf7-credentials-invalidated' style='display:<?php echo $are_credentials_valid ? 'none' : 'block'; ?>'>
