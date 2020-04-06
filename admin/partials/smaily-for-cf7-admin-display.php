@@ -18,7 +18,8 @@
 </div>
 <?php else : ?>
 <div id='smailyforcf7-credentials-valid' style='display:<?php echo $are_credentials_valid ? 'block' : 'none'; ?>'>
-	<span  style='margin:15px;'><?php echo esc_html__( 'Your API credentials are valid', 'smaily-for-cf7' ); ?></span></br>
+	<span
+		style='margin:15px;'><?php echo esc_html__( 'Your API credentials are valid', 'smaily-for-cf7' ); ?></span></br>
 	<table class='autoresponders-table' style='margin:15px'>
 		<tr id='smailyforcf7-autoresponders' class='form-field'>
 			<th><?php echo esc_html__( 'Autoresponder', 'smaily-for-cf7' ); ?></th>
@@ -48,8 +49,9 @@
 		<?php echo esc_html__( 'Captcha disabled. Please use a captcha if this is a public site.', 'smaily-for-cf7' ); ?>
 	</p>
 	<p id='smailyforcf7-credentials-error' class='smailyforcf7-response'
-			style='padding:15px; background-color:#f2dede; margin:0 0 10px; display: none;'>
-		</p>
+		style='padding:15px; background-color:#f2dede; margin:0 0 10px; display:<?php echo $was_account_removed ? 'block' : 'none'; ?>'>
+		<?php echo esc_html__( 'Saved credentials invalid.', 'smaily-for-cf7' ); ?>
+	</p>
 	<table class='form-table'>
 		<tbody>
 			<tr class='form-field'>
