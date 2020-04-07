@@ -33,10 +33,9 @@
 				}
 				$('#smailyforcf7-credentials-invalidated').hide();
 				// Fill autoresponder <select> with autoresponders if currently empty.
-				if ($('#smailyforcf7-autoresponder-select').has('option').length > 0) {
-					$.each(result.autoresponders, function(index, autoresponder) {
-						var option = new Option(autoresponder.title, autoresponder.id);
-						$('#smailyforcf7-autoresponder-select').append($(option));
+				if ($('#smailyforcf7-autoresponder-select').has('option').length === 0) {
+					$.each(result.autoresponders, function(id, autoresponder) {
+						$('#smailyforcf7-autoresponder-select').append(new Option(autoresponder, id));
 					});
 				}
 				$('#smailyforcf7-credentials-valid').show();
