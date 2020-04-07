@@ -31,9 +31,7 @@
 					$('#smailyforcf7-credentials-error').text(result.message).show();
 					return;
 				}
-				$('#smailyforcf7-credentials-success').text(result.message).show();
-				// Autoresponders are default hidden if user hasn't validated credentials.
-				$('#smailyforcf7-autoresponders').show();
+				$('#smailyforcf7-credentials-invalidated').hide();
 				// Fill autoresponder <select> with autoresponders if currently empty.
 				if ($('#smailyforcf7-autoresponder-select').has('option').length > 0) {
 					$.each(result.autoresponders, function(index, autoresponder) {
@@ -41,7 +39,7 @@
 						$('#smailyforcf7-autoresponder-select').append($(option));
 					});
 				}
-
+				$('#smailyforcf7-credentials-valid').show();
 			})
 		});
 
@@ -55,15 +53,14 @@
 				},
 				function (result) {
 					if (result.code === 200) {
-						$('#smailyforcf7-credentials-success').text(result.message).show();
 						// Clear credentials
+						$('#smailyforcf7-credentials-valid').hide();
 						$('input[name="smailyforcf7[subdomain]"]').val('');
 						$('input[name="smailyforcf7[username]"]').val('');
 						$('input[name="smailyforcf7[password]"]').val('');
-						// User shouldn't be able to select autoresponder without credentials.
-						$('#smailyforcf7-autoresponders').hide();
+						$('#smailyforcf7-credentials-invalidated').show();
 					} else {
-						$('#smailyforcf7-credentials-error').text(result.message).show();
+						$('#smailyforcf7-credentials-valid-message').text(result.message).show();
 					}
 				},
 			);
