@@ -33,7 +33,8 @@
 				}
 				$('#smailyforcf7-credentials-invalidated').hide();
 				// Fill autoresponder <select> with autoresponders if currently empty.
-				if ($('#smailyforcf7-autoresponder-select').has('option').length === 0) {
+				// Select menu always has 1 default option, 'No autoresponder'.
+				if ($('#smailyforcf7-autoresponder-select').has('option').length === 1) {
 					$.each(result.autoresponders, function(id, autoresponder) {
 						$('#smailyforcf7-autoresponder-select').append(new Option(autoresponder, id));
 					});
