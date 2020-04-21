@@ -96,11 +96,7 @@ class Smaily_For_CF7_Admin {
 			return;
 		}
 
-		$response = $this->fetch_autoresponders(
-			$subdomain,
-			$username,
-			$password,
-		);
+		$response = $this->fetch_autoresponders( $subdomain, $username, $password );
 
 		// Don't save invalid credentials.
 		if ( 200 !== $response['code'] ) {
@@ -284,21 +280,13 @@ class Smaily_For_CF7_Admin {
 
 		$subdomain = $this->normalize_subdomain( $subdomain );
 
-		if (
-			empty( $subdomain )
-			|| empty( $username )
-			|| empty( $password )
-		) {
+		if ( empty( $subdomain ) || empty( $username ) || empty( $password ) ) {
 			$response['message'] = esc_html__( 'Please fill out all fields!', 'smaily-for-cf7' );
 			$response['code']    = 422;
 			wp_send_json( $response );
 		}
 
-		$response = $this->fetch_autoresponders(
-			$subdomain,
-			$username,
-			$password,
-		);
+		$response = $this->fetch_autoresponders( $subdomain, $username, $password );
 
 		if ( 200 === $response['code'] && ! empty( $form_id ) ) {
 			$data_to_save = array(
