@@ -59,7 +59,7 @@ class Smaily_For_CF7_Admin {
 			plugins_url( 'js/smaily-for-cf7-admin.js', __FILE__ ),
 			array( 'jquery', 'wpcf7-admin' ),
 			$this->version,
-			true,
+			true
 		);
 		wp_localize_script(
 			$this->plugin_name,
