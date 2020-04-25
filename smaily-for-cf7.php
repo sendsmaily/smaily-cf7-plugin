@@ -74,8 +74,31 @@ run_smaily_for_cf7();
 function smaily_for_cf7_admin_notices() {
 	$message = __(
 		'Smaily for Contact Form 7 is not able to activate.
-		Contact Form 7 is needed to function properly. Is Contact Form 7 installed?',
+		Contact Form 7 is needed to function properly. Is Contact Form 7 installed and activated?',
 		'smaily-for-cf7'
 	);
-	echo "<div class='update-message notice inline notice-warning notice-alt'><p>" . esc_html( $message ) . '</p></div>';
+	echo "<div class='notice notice-error is-dismissible'><p>" . esc_html( $message ) . '</p></div>';
+	add_filter( 'gettext', 'hide_plugin_activated_notice', 99, 2 );
+}
+
+/**
+ * Hide 'plugin activated' admin notice via CSS.
+ *
+ * @param string $replaced_text Replaced text.
+ * @param string $text Text to replace.
+ * @return string
+ */
+function hide_plugin_activated_notice( $replaced_text, $text ) {
+	$activation_strings    = array(
+		'Plugin activated.',
+		'Selected plugins activated.',
+		// Older WordPress variants.
+		'Plugin <strong>activated</strong>.',
+		'Selected plugins <strong>activated</strong>.',
+	);
+	$new_activation_notice = '<style>div#message.updated{ display: none; }</style>';
+	if ( in_array( $text, $activation_strings, true ) ) {
+		$replaced_text = $new_activation_notice;
+	}
+	return $replaced_text;
 }
