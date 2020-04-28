@@ -60,22 +60,13 @@ function run_smaily_for_cf7() {
 	// Check if Contact Form 7 is installed and activate plugin only if it is.
 	if ( ! is_plugin_active( 'contact-form-7/wp-contact-form-7.php' ) ) {
 		deactivate_plugins( plugin_basename( __FILE__ ), false );
-		add_action( 'admin_notices', 'smaily_for_cf7_admin_notices' );
-		return;
+		$message = __(
+			'Smaily for Contact Form 7 is not able to activate.
+			Contact Form 7 is needed to function properly. Is Contact Form 7 installed and activated?',
+			'smaily-for-cf7'
+		);
+		wp_die( esc_html( $message ) );
 	}
 	$plugin->run();
-
 }
 run_smaily_for_cf7();
-
-/**
- * Display message in admin notice area.
- */
-function smaily_for_cf7_admin_notices() {
-	$message = __(
-		'Smaily for Contact Form 7 is not able to activate.
-		Contact Form 7 is needed to function properly. Is Contact Form 7 installed?',
-		'smaily-for-cf7'
-	);
-	echo "<div class='update-message notice inline notice-warning notice-alt'><p>" . esc_html( $message ) . '</p></div>';
-}
