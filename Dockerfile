@@ -1,4 +1,4 @@
-FROM wordpress:5.3.2-php7.3-apache
+FROM wordpress:5.4-php7.3-apache
 
 # Install Transliterator
 RUN apt-get update && apt-get install -y unzip wget zlib1g-dev libicu-dev g++ \
