@@ -19,7 +19,7 @@
 # ----- START EDITING HERE -----
 
 # The slug of your WordPress.org plugin
-PLUGIN_SLUG="smaily-for-cf7"
+PLUGIN_SLUG="smaily-for-contact-form-7"
 
 # Wordpress.org SVN repository username
 SVN_USER="sendsmaily"

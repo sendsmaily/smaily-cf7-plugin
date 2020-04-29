@@ -99,18 +99,18 @@ class Smaily_For_CF7 {
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-smaily-for-cf7-loader.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-smaily-for-contact-form-7-loader.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-smaily-for-cf7-admin.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-smaily-for-contact-form-7-admin.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-smaily-for-cf7-public.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-smaily-for-contact-form-7-public.php';
 
 		$this->loader = new Smaily_For_CF7_Loader();
 	}
