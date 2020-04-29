@@ -171,20 +171,20 @@ class Smaily_For_CF7_Public {
 			->setData( $array )
 			->post();
 		if ( empty( $result ) ) {
-			$error_message = esc_html__( 'Something went wrong', 'smaily-for-cf7' );
+			$error_message = esc_html__( 'Something went wrong', 'smaily-for-contact-form-7' );
 		} elseif ( 101 !== (int) $result['code'] ) {
 			switch ( $result['code'] ) {
 				case 201:
-					$error_message = esc_html__( 'Form was not submitted using POST method.', 'smaily-for-cf7' );
+					$error_message = esc_html__( 'Form was not submitted using POST method.', 'smaily-for-contact-form-7' );
 					break;
 				case 204:
-					$error_message = esc_html__( 'Input does not contain a valid email address.', 'smaily-for-cf7' );
+					$error_message = esc_html__( 'Input does not contain a valid email address.', 'smaily-for-contact-form-7' );
 					break;
 				case 205:
-					$error_message = esc_html__( 'Could not add to subscriber list for an unknown reason.', 'smaily-for-cf7' );
+					$error_message = esc_html__( 'Could not add to subscriber list for an unknown reason.', 'smaily-for-contact-form-7' );
 					break;
 				default:
-					$error_message = esc_html__( 'Something went wrong', 'smaily-for-cf7' );
+					$error_message = esc_html__( 'Something went wrong', 'smaily-for-contact-form-7' );
 					break;
 			}
 		}

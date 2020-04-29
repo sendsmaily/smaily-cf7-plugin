@@ -195,7 +195,7 @@ class Smaily_For_CF7_Admin {
 	public function add_tab( $panels ) {
 		$panel = array(
 			'smailyforcf7' => array(
-				'title'    => __( 'Smaily for Contact Form 7', 'smaily-for-cf7' ),
+				'title'    => __( 'Smaily for Contact Form 7', 'smaily-for-contact-form-7' ),
 				'callback' => array( $this, 'panel_content' ),
 			),
 		);
@@ -222,23 +222,23 @@ class Smaily_For_CF7_Admin {
 		$response = array();
 		if ( empty( $request ) ) {
 			$response['code']    = 500;
-			$response['message'] = esc_html__( 'No response from Smaily', 'smaily-for-cf7' );
+			$response['message'] = esc_html__( 'No response from Smaily', 'smaily-for-contact-form-7' );
 			return $response;
 		}
 
 		$response['code'] = isset( $request['code'] ) ? (int) $request['code'] : 0;
 		switch ( $response['code'] ) {
 			case 200:
-				$response['message'] = esc_html__( 'Credentials valid', 'smaily-for-cf7' );
+				$response['message'] = esc_html__( 'Credentials valid', 'smaily-for-contact-form-7' );
 				break;
 			case 401:
-				$response['message'] = esc_html__( 'Wrong credentials', 'smaily-for-cf7' );
+				$response['message'] = esc_html__( 'Wrong credentials', 'smaily-for-contact-form-7' );
 				break;
 			case 404:
-				$response['message'] = esc_html__( 'Error in subdomain', 'smaily-for-cf7' );
+				$response['message'] = esc_html__( 'Error in subdomain', 'smaily-for-contact-form-7' );
 				break;
 			default:
-				$response['message'] = esc_html__( 'Something went wrong', 'smaily-for-cf7' );
+				$response['message'] = esc_html__( 'Something went wrong', 'smaily-for-contact-form-7' );
 				break;
 		}
 		$response['autoresponders'] = isset( $request['body'] ) ? $request['body'] : array();
@@ -264,11 +264,11 @@ class Smaily_For_CF7_Admin {
 			! isset( $_POST['nonce'] )
 			|| ! wp_verify_nonce( $_POST['nonce'], 'smailyforcf7-verify-credentials' )
 		) {
-			wp_die( esc_html__( 'Your nonce did not verify!', 'smaily-for-cf7' ) );
+			wp_die( esc_html__( 'Your nonce did not verify!', 'smaily-for-contact-form-7' ) );
 		}
 		$form_id = isset( $_POST['form_id'] ) ? (int) wp_unslash( $_POST['form_id'] ) : 0;
 		if ( ! current_user_can( 'wpcf7_edit_contact_form', $form_id ) ) {
-			$response['message'] = esc_html__( 'You do not have permission!', 'smaily-for-cf7' );
+			$response['message'] = esc_html__( 'You do not have permission!', 'smaily-for-contact-form-7' );
 			$response['code']    = 403;
 			wp_send_json( $response );
 		}
@@ -281,7 +281,7 @@ class Smaily_For_CF7_Admin {
 		$subdomain = $this->normalize_subdomain( $subdomain );
 
 		if ( empty( $subdomain ) || empty( $username ) || empty( $password ) ) {
-			$response['message'] = esc_html__( 'Please fill out all fields!', 'smaily-for-cf7' );
+			$response['message'] = esc_html__( 'Please fill out all fields!', 'smaily-for-contact-form-7' );
 			$response['code']    = 422;
 			wp_send_json( $response );
 		}
@@ -308,16 +308,16 @@ class Smaily_For_CF7_Admin {
 	public function remove_credentials_callback() {
 		$form_id = isset( $_POST['form_id'] ) ? (int) wp_unslash( $_POST['form_id'] ) : 0;
 		if ( ! current_user_can( 'wpcf7_delete_contact_form', $form_id ) ) {
-			$response['message'] = esc_html__( 'You do not have permission!', 'smaily-for-cf7' );
+			$response['message'] = esc_html__( 'You do not have permission!', 'smaily-for-contact-form-7' );
 			$response['code']    = 403;
 			wp_send_json( $response );
 		}
 		if ( get_option( 'smailyforcf7_form_' . $form_id ) ) {
 			delete_option( 'smailyforcf7_form_' . $form_id );
-			$response['message'] = esc_html__( 'Credentials removed', 'smaily-for-cf7' );
+			$response['message'] = esc_html__( 'Credentials removed', 'smaily-for-contact-form-7' );
 			$response['code']    = 200;
 		} else {
-			$response['message'] = esc_html__( 'No credentials to remove', 'smaily-for-cf7' );
+			$response['message'] = esc_html__( 'No credentials to remove', 'smaily-for-contact-form-7' );
 			$response['code']    = 404;
 		}
 		wp_send_json( $response );
