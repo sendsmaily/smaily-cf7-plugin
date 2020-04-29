@@ -48,7 +48,7 @@ define( 'SMAILY_FOR_CF7_VERSION', '1.0.0' );
  * The core plugin class that is used to define
  * admin-specific hook and public-facing site hooks.
  */
-require plugin_dir_path( __FILE__ ) . 'includes/class-smaily-for-contact-form-7.php';
+require plugin_dir_path( __FILE__ ) . 'includes/class-smaily-for-cf7.php';
 
 /**
  * Begins execution of the plugin.

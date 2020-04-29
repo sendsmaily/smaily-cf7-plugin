@@ -56,7 +56,7 @@ class Smaily_For_CF7_Admin {
 	public function enqueue_scripts() {
 		wp_enqueue_script(
 			$this->plugin_name,
-			plugins_url( 'js/smaily-for-contact-form-7-admin.js', __FILE__ ),
+			plugins_url( 'js/smaily-for-cf7-admin.js', __FILE__ ),
 			array( 'jquery', 'wpcf7-admin' ),
 			$this->version,
 			true
@@ -140,7 +140,7 @@ class Smaily_For_CF7_Admin {
 
 		$are_credentials_valid = 200 === $response['code'];
 		$was_account_removed   = ! $are_credentials_valid && $smailyforcf7_option;
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/smaily-for-contact-form-7-admin-display.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/partials/smaily-for-cf7-admin-display.php';
 	}
 
 	/**
@@ -213,7 +213,7 @@ class Smaily_For_CF7_Admin {
 	 * @return array $response
 	 */
 	private function fetch_autoresponders( $subdomain, $username, $password ) {
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-smaily-for-contact-form-7-request.php';
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-smaily-for-cf7-request.php';
 		$request = ( new Smaily_For_CF7_Request() )
 					->auth( $username, $password )
 					->setUrl( 'https://' . $subdomain . '.sendsmaily.net/api/workflows.php?trigger_type=form_submitted' )
