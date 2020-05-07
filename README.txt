@@ -1,5 +1,5 @@
 === Smaily for Contact Form 7 ===
-Contributors: smaily, tomabel
+Contributors: sendsmaily, tomabel
 Tags: contact form 7, smaily, newsletter, email
 Requires PHP: 5.6
 Requires at least: 4.0
