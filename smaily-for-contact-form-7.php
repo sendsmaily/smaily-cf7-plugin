@@ -51,6 +51,16 @@ define( 'SMAILY_FOR_CF7_VERSION', '1.0.0' );
 require plugin_dir_path( __FILE__ ) . 'includes/class-smaily-for-cf7.php';
 
 /**
+ * Load plugin textdomain.
+ *
+ * @since 1.0.0
+ */
+function smaily_for_cf7_load_textdomain() {
+	load_plugin_textdomain( 'smaily-for-contact-form-7', false, basename( dirname( __FILE__ ) ) . '/languages/' );
+}
+add_action( 'plugins_loaded', 'smaily_for_cf7_load_textdomain' );
+
+/**
  * Begins execution of the plugin.
  *
  * @since    1.0.0
