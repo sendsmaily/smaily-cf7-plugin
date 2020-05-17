@@ -57,6 +57,9 @@ class Smaily_For_CF7_Public {
 	public function __construct( $plugin_name, $version ) {
 		$this->plugin_name    = $plugin_name;
 		$this->version        = $version;
+		if ( ! class_exists( 'Transliterator' ) ) {
+			wp_die( esc_html__( 'Smaily for CF7 requires Transliterator extension. Please install PHP Intl package and try again.' ) );
+		}
 		$this->transliterator = Transliterator::create( 'Any-Latin; Latin-ASCII' );
 	}
 
