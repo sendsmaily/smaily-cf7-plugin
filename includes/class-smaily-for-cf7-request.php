@@ -92,13 +92,13 @@ class Smaily_For_CF7_Request {
 	 */
 	public function get() {
 		$response = array();
-		$auth     = array(
+		$args     = array(
 			'headers' => array(
 				'Authorization' => 'Basic ' . base64_encode( $this->_username . ':' . $this->_password ),
 			),
+			'user-agent' => $this->get_version_info_for_useragent(),
 		);
-		$api_call = wp_remote_get( $this->_url, $auth );
-
+		$api_call = wp_remote_get( $this->_url, $args );
 		// Response code from Smaily API.
 		if ( is_wp_error( $api_call ) ) {
 			$response = array( 'error' => $api_call->get_error_message() );
@@ -114,15 +114,17 @@ class Smaily_For_CF7_Request {
 	 * @return array
 	 */
 	public function post() {
-		$response = array();
-		$auth     = array(
+		$response   = array();
+		$args       = array(
 			'headers' => array(
 				'Authorization' => 'Basic ' . base64_encode( $this->_username . ':' . $this->_password ),
 			),
+			'user-agent' => $this->get_version_info_for_useragent(),
 		);
-		$body = array( 'body' => $this->_data );
-		$args = array_merge( $auth, $body );
-		$subscription_post = wp_remote_post( $this->_url, http_build_query( $args ) );
+		$body       = array( 'body' => $this->_data );
+		$query_data = array_merge( $args, $body );
+
+		$subscription_post = wp_remote_post( $this->_url, http_build_query( $query_data ) );
 		// Response code from Smaily API.
 		if ( is_wp_error( $subscription_post ) ) {
 			$response = array( 'error' => $subscription_post->get_error_message() );
@@ -130,5 +132,16 @@ class Smaily_For_CF7_Request {
 			$response = json_decode( wp_remote_retrieve_body( $subscription_post ), true );
 		}
 		return $response;
+	}
+
+	/**
+	 * Find WordPress, Contact Form and Smaily plugin version info and return as string for user-agent.
+	 *
+	 * @return string
+	 */
+	private function get_version_info_for_useragent() {
+		$wp_useragent = 'WordPress/' . get_bloginfo( 'version' ) . '; ' . get_bloginfo( 'url' );
+		$version_info = '; ContactForm7/' . WPCF7_VERSION . '; smaily-for-contact-form-7/' . SMAILY_FOR_CF7_VERSION;
+		return $wp_useragent . $version_info;
 	}
 }
