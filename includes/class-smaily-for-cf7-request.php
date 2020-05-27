@@ -123,6 +123,7 @@ class Smaily_For_CF7_Request {
 		);
 		$body       = array( 'body' => $this->_data );
 		$query_data = array_merge( $args, $body );
+
 		$subscription_post = wp_remote_post( $this->_url, $query_data );
 		// Response code from Smaily API.
 		if ( is_wp_error( $subscription_post ) ) {
