@@ -139,8 +139,12 @@ class Smaily_For_CF7_Request {
 	 * @return string
 	 */
 	private function get_version_info_for_useragent() {
-		$wp_useragent = 'WordPress/' . get_bloginfo( 'version' ) . '; ' . get_bloginfo( 'url' );
-		$version_info = '; ContactForm7/' . WPCF7_VERSION . '; smaily-for-contact-form-7/' . SMAILY_FOR_CF7_VERSION;
-		return $wp_useragent . $version_info;
+		$wp_useragent = array(
+			'WordPress/' . get_bloginfo( 'version' ),
+			get_bloginfo( 'url' ),
+			'ContactForm7/' . WPCF7_VERSION,
+			'smaily-for-contact-form-7/' . SMAILY_FOR_CF7_VERSION,
+		);
+		return implode( '; ', $wp_useragent );
 	}
 }
