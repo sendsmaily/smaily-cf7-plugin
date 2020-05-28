@@ -22,7 +22,7 @@ Automatically subscribe newsletter subscribers to a Smaily subscriber list using
 Smaily for Contact Form 7 requires:
 - PHP 5.6+ (PHP 7.0+ Recommended)
 - PHP Transliterator plugin
-- WordPress 4.0+
+- WordPress 4.6+
 - Contact Form 7 4.0+.
 - reCAPTCHA integration or Really Simple Captcha embedded into form.
 
@@ -57,6 +57,10 @@ All development for Smaily for Contact Form 7 is [handled via GitHub](https://gi
 2. Example form included in plugin.
 
 ## Changelog
+
+### 1.0.1
+
+- Increase minimum required WordPress version.
 
 ### 1.0.0
 
