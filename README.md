@@ -58,6 +58,10 @@ All development for Smaily for Contact Form 7 is [handled via GitHub](https://gi
 
 ## Changelog
 
+### 1.0.2
+
+- Add translations for Estonian.
+
 ### 1.0.1
 
 - Increase minimum required WordPress version.
