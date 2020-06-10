@@ -53,7 +53,7 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-smaily-for-cf7.php';
 /**
  * Load translations files.
  *
- * @since 1.0.0
+ * @since 1.0.2
  */
 function smaily_for_cf7_load_textdomain() {
 	load_plugin_textdomain( 'smaily-for-contact-form-7', false, plugin_dir_path( __FILE__ ) . '/languages/' );
