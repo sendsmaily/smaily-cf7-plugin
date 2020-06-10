@@ -71,8 +71,8 @@ function run_smaily_for_cf7() {
 	if ( ! is_plugin_active( 'contact-form-7/wp-contact-form-7.php' ) ) {
 		deactivate_plugins( plugin_basename( __FILE__ ), false );
 		$message = __(
-			'Smaily for Contact Form 7 is not able to activate.
-			Contact Form 7 is needed to function properly. Is Contact Form 7 installed and activated?',
+			'Smaily for Contact Form 7 is not able to activate. ' .
+			'Contact Form 7 is needed to function properly. Is Contact Form 7 installed and activated?',
 			'smaily-for-contact-form-7'
 		);
 		wp_die( esc_html( $message ) );
