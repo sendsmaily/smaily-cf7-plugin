@@ -66,11 +66,7 @@ class Smaily_For_CF7 {
 	 * @since    1.0.0
 	 */
 	public function __construct() {
-		if ( defined( 'SMAILY_FOR_CF7_VERSION' ) ) {
-			$this->version = SMAILY_FOR_CF7_VERSION;
-		} else {
-			$this->version = '1.0.0';
-		}
+		$this->version     = SMAILY_FOR_CF7_VERSION;
 		$this->plugin_name = 'smaily_for_cf7';
 
 		$this->load_dependencies();
