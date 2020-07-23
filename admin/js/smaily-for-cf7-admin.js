@@ -9,6 +9,9 @@
 		}
 	}
 	$(document).ready(function () {
+		// Disable onbeforeunload event.
+		jQuery(window).off("beforeunload", null);
+
 		$('#smailyforcf7_validate_credentials').click(function () {
 			$.post(smaily_for_cf7.ajax_url,
 			{
