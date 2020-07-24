@@ -38,6 +38,12 @@ do
     esac
 done
 
+# If no command line argument was passed
+if [ $OPTIND -eq 1 ];
+then
+    usage
+    exit 1
+fi
 # ----- STOP EDITING HERE -----
 
 set -e
