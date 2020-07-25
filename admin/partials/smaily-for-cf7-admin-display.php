@@ -25,7 +25,9 @@
 			<th><?php echo esc_html__( 'Autoresponder', 'smaily-for-contact-form-7' ); ?></th>
 			<td>
 				<select id='smailyforcf7-autoresponder-select' name='smailyforcf7-autoresponder'>
-					<option value=''><?php echo esc_html__( 'No autoresponder', 'smaily-for-contact-form-7' ); ?></option>
+					<option value='' <?php echo $default_autoresponder === 0 ? 'selected="selected"' : ''; ?>>
+						<?php echo esc_html__( 'No autoresponder', 'smaily-for-contact-form-7' ); ?>
+					</option>
 					<?php foreach ( $autoresponder_list as $autoresponder_id => $autoresponder_title ) : ?>
 					<option value='<?php echo esc_html( $autoresponder_id ); ?>'
 						<?php if ( $default_autoresponder === $autoresponder_id ) : ?> selected='selected'

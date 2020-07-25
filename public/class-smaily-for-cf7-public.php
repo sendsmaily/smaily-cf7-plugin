@@ -214,7 +214,7 @@ class Smaily_For_CF7_Public {
 		add_filter(
 			'wpcf7_ajax_json_echo',
 			function ( $response ) use ( $error_message ) {
-				$response['status']  = 'validation_error';
+				$response['status']  = 'validation_failed';
 				$response['message'] = $error_message;
 				return $response;
 			}
