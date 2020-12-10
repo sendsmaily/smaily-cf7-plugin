@@ -211,6 +211,19 @@ class Smaily_For_CF7_Public {
 	 * @param string $error_message The error message.
 	 */
 	private function set_wpcf7_error( $error_message ) {
+		// wpcf7_ajax_json_echo was deprecated in 5.2, try wpcf7_feedback_response and if unavailable
+		// fall back to wpcf7_ajax_json_echo. No difference between them, they behave and function in the same way.
+		if ( has_filter( 'wpcf7_feedback_response' ) ) {
+			add_filter(
+				'wpcf7_feedback_response',
+				function ( $response ) use ( $error_message ) {
+					$response['status']  = 'validation_failed';
+					$response['message'] = $error_message;
+					return $response;
+				}
+			);
+			return;
+		}
 		add_filter(
 			'wpcf7_feedback_response',
 			function ( $response ) use ( $error_message ) {
