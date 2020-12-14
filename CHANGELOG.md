@@ -2,8 +2,8 @@
 
 ### 1.0.4
 
-- Fix validation failing when subdomain entered as fully-qualified domain name.
-- Increase maximum supported WordPress version.
+- Fix validation failing when subdomain entered as fully-qualified domain name - [[#37](https://github.com/sendsmaily/smaily-cf7-plugin/issues/37)]
+- Increase maximum supported WordPress version - [[#39](https://github.com/sendsmaily/smaily-cf7-plugin/issues/39)]
 
 ### 1.0.3
 
