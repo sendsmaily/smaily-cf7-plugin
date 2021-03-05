@@ -15,7 +15,7 @@
  * Plugin Name: Smaily for Contact Form 7
  * Plugin URI: https://github.com/sendsmaily/smaily-cf7-plugin
  * Description: Integrate Contact Form 7 form(s) with Smaily to add subscribers directly to Smaily and trigger marketing automations.
- * Version: 1.0.4
+ * Version: 1.0.5
  * License: GPL3
  * Author: Smaily
  * Author URI: https://smaily.com/
@@ -42,7 +42,7 @@ defined( 'ABSPATH' ) || die( "This is a plugin you can't access directly" );
 // Required to use functions is_plugin_active and deactivate_plugins.
 require_once ABSPATH . 'wp-admin/includes/plugin.php';
 
-define( 'SMAILY_FOR_CF7_VERSION', '1.0.4' );
+define( 'SMAILY_FOR_CF7_VERSION', '1.0.5' );
 
 /**
  * The core plugin class that is used to define
