@@ -1,5 +1,9 @@
 # Changelog
 
+### 1.0.5
+
+- Test compatibility with WordPress 5.7 - [[#47](https://github.com/sendsmaily/smaily-cf7-plugin/issues/47)]
+
 ### 1.0.4
 
 - Fix validation failing when subdomain entered as fully-qualified domain name - [[#37](https://github.com/sendsmaily/smaily-cf7-plugin/issues/37)]
