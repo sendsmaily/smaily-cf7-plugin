@@ -3,7 +3,7 @@ Contributors: sendsmaily, tomabel
 Tags: contact form 7, smaily, newsletter, email
 Requires PHP: 5.6
 Requires at least: 4.6
-Tested up to: 5.7
+Tested up to: 5.8
 Stable tag: 1.0.5
 License: GPLv3
 
