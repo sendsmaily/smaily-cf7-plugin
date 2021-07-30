@@ -3,9 +3,10 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Smaily for Contact Form 7\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/smaily-for-contact-form-7/"
-"POT-Creation-Date: 2020-06-10 18:57+0300\n"
-"PO-Revision-Date: 2020-06-10 18:58+0300\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/smaily-for-"
+"contact-form-7/POT-Creation-Date: 2020-06-10 18:57+0300\n"
+"POT-Creation-Date: 2021-07-30 12:13+0300\n"
+"PO-Revision-Date: 2021-07-30 12:13+0300\n"
 "Last-Translator: Tom <tom@smaily.com>\n"
 "Language-Team: Smaily\n"
 "Language: en\n"
@@ -83,39 +84,39 @@ msgstr "Your API credentials are valid"
 msgid "Autoresponder"
 msgstr "Autoresponder"
 
-#: admin/partials/smaily-for-cf7-admin-display.php:28
+#: admin/partials/smaily-for-cf7-admin-display.php:29
 msgid "No autoresponder"
 msgstr "No autoresponder"
 
-#: admin/partials/smaily-for-cf7-admin-display.php:42
+#: admin/partials/smaily-for-cf7-admin-display.php:44
 msgid "Reset credentials"
 msgstr "Reset credentials"
 
-#: admin/partials/smaily-for-cf7-admin-display.php:46
+#: admin/partials/smaily-for-cf7-admin-display.php:48
 msgid "Connect form with Smaily"
 msgstr "Connect form with Smaily"
 
-#: admin/partials/smaily-for-cf7-admin-display.php:49
+#: admin/partials/smaily-for-cf7-admin-display.php:51
 msgid "Captcha disabled. Please use a captcha if this is a public site."
 msgstr "Captcha disabled. Please use a captcha if this is a public site."
 
-#: admin/partials/smaily-for-cf7-admin-display.php:53
+#: admin/partials/smaily-for-cf7-admin-display.php:55
 msgid "Saved credentials invalid."
 msgstr "Saved credentials invalid."
 
-#: admin/partials/smaily-for-cf7-admin-display.php:58
+#: admin/partials/smaily-for-cf7-admin-display.php:60
 msgid "Subdomain"
 msgstr "Subdomain"
 
-#: admin/partials/smaily-for-cf7-admin-display.php:68
+#: admin/partials/smaily-for-cf7-admin-display.php:70
 msgid "API Username"
 msgstr "API Username"
 
-#: admin/partials/smaily-for-cf7-admin-display.php:75
+#: admin/partials/smaily-for-cf7-admin-display.php:77
 msgid "API Password"
 msgstr "API Password"
 
-#: admin/partials/smaily-for-cf7-admin-display.php:88
+#: admin/partials/smaily-for-cf7-admin-display.php:90
 msgid "Verify credentials"
 msgstr "Verify credentials"
 

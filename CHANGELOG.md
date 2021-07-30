@@ -1,5 +1,9 @@
 # Changelog
 
+### 1.0.6
+
+- Test compatibility with WordPress 5.8 - [[#53](https://github.com/sendsmaily/smaily-cf7-plugin/pull/53)]
+
 ### 1.0.5
 
 - Test compatibility with WordPress 5.7 - [[#47](https://github.com/sendsmaily/smaily-cf7-plugin/issues/47)]
