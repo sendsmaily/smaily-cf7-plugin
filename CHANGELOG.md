@@ -1,5 +1,9 @@
 # Changelog
 
+### 1.0.7
+
+- Update user manual links - [[#57](https://github.com/sendsmaily/smaily-cf7-plugin/pull/57)]
+
 ### 1.0.6
 
 - Test compatibility with WordPress 5.8 - [[#53](https://github.com/sendsmaily/smaily-cf7-plugin/pull/53)]
