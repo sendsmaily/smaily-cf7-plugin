@@ -1,5 +1,9 @@
 # Changelog
 
+### 1.0.8
+
+- Fix dependency issue with Contact Form 7 JS file - [[#61](https://github.com/sendsmaily/smaily-cf7-plugin/pull/61)]
+
 ### 1.0.7
 
 - Update user manual links - [[#57](https://github.com/sendsmaily/smaily-cf7-plugin/pull/57)]
