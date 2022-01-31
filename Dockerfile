@@ -1,17 +1,23 @@
-FROM wordpress:5.6-php7.3-apache
+FROM wordpress:5.9-php7.3-apache
 
-# Install Transliterator
-RUN apt-get update && apt-get install -y unzip wget zlib1g-dev libicu-dev g++ \
-    && rm -rf /var/lib/apt/lists/* \
-    && docker-php-ext-configure intl \
+ENV CF7_VERSION="5.5.4"
+ENV RSC_VERSION="2.1"
+
+# Install required packages.
+RUN apt-get update \
+    && apt-get install -y unzip wget zlib1g-dev libicu-dev g++ \
+    && rm -rf /var/lib/apt/lists/*
+
+# Compile and install PHP transliterator.
+RUN docker-php-ext-configure intl \
     && docker-php-ext-install intl
-RUN mkdir /usr/src/wordpress/wp-content/plugins/contact-form-7 \
-  && wget https://downloads.wordpress.org/plugin/contact-form-7.5.3.1.zip \
-  && unzip contact-form-7.5.3.1.zip \
-  && mv contact-form-7/* /usr/src/wordpress/wp-content/plugins/contact-form-7 \
-  && rm contact-form-7.5.3.1.zip
-RUN mkdir /usr/src/wordpress/wp-content/plugins/really-simple-captcha \
-  && wget https://downloads.wordpress.org/plugin/really-simple-captcha.zip \
-  && unzip really-simple-captcha.zip \
-  && mv really-simple-captcha/* /usr/src/wordpress/wp-content/plugins/really-simple-captcha \
-  && rm really-simple-captcha.zip
+
+# Install Contact Form 7.
+RUN wget -O /tmp/cf7.zip "https://downloads.wordpress.org/plugin/contact-form-7.${CF7_VERSION}.zip" \
+    && unzip /tmp/cf7.zip -d /usr/src/wordpress/wp-content/plugins \
+    && rm /tmp/cf7.zip
+
+# Install Really Simple CAPTCHA.
+RUN wget -O /tmp/rsc.zip "https://downloads.wordpress.org/plugin/really-simple-captcha.${RSC_VERSION}.zip" \
+    && unzip /tmp/rsc.zip -d  /usr/src/wordpress/wp-content/plugins \
+    && rm /tmp/rsc.zip
