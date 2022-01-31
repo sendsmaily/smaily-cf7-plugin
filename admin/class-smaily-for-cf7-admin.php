@@ -52,8 +52,13 @@ class Smaily_For_CF7_Admin {
 	 * Register the JavaScript for the admin area.
 	 *
 	 * @since    1.0.0
+	 * @param    string $hook_suffix
 	 */
-	public function enqueue_scripts() {
+	public function enqueue_scripts( $hook_suffix ) {
+		if ( false === strpos( $hook_suffix, 'wpcf7' ) ) {
+			return;
+		}
+
 		wp_enqueue_script(
 			$this->plugin_name,
 			plugins_url( 'js/smaily-for-cf7-admin.js', __FILE__ ),
