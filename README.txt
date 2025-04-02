@@ -3,8 +3,8 @@ Contributors: sendsmaily, tomabel
 Tags: contact form 7, smaily, newsletter, email
 Requires PHP: 5.6
 Requires at least: 4.6
-Tested up to: 6.2
-Stable tag: 1.0.9
+Tested up to: 6.7
+Stable tag: 1.0.10
 License: GPLv3
 
 Flexible and straightforward Smaily newsletter integration for Contact Form 7.
@@ -64,6 +64,12 @@ All development for Smaily for Contact Form 7 is [handled via GitHub](https://gi
 2. Example form included in plugin.
 
 == Changelog ==
+
+### 1.0.10
+
+- Fixes an issue where first select field was sent to Smaily instead of the user selected value
+- WordPress 6.7 compatibility
+- Contact Form 7 6.0 compatibility
 
 ### 1.0.9
 
