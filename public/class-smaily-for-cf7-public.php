@@ -80,6 +80,7 @@ class Smaily_For_CF7_Public {
 		// Don't continue if no posted data or no saved credentials.
 		$posted_data         = $submission_instance->get_posted_data();
 		$smailyforcf7_option = get_option( 'smailyforcf7_form_' . $instance->id() );
+
 		if ( empty( $posted_data ) || false === $smailyforcf7_option ) {
 			return;
 		}
@@ -104,7 +105,7 @@ class Smaily_For_CF7_Public {
 			}
 			// Single option dropdown menu and radio button can only have one value.
 			elseif ( $is_single_option_radio || $is_single_option_menu ) {
-				$payload[ $this->format_field( $tag->name ) ] = $tag->values[0];
+				$payload[ $this->format_field( $tag->name ) ] = $posted_value[0] ?? '';
 			}
 			// Tags with multiple options need to have default values, because browsers do not send values of unchecked inputs.
 			elseif ( $tag->basetype === 'select' || $tag->basetype === 'radio' || $tag->basetype === 'checkbox' ) {
@@ -173,12 +174,16 @@ class Smaily_For_CF7_Public {
 			->auth( $username, $password )
 			->setData( $array )
 			->post();
+
 		if ( empty( $result ) ) {
 			$error_message = esc_html__( 'Something went wrong', 'smaily-for-contact-form-7' );
 		} elseif ( 101 !== (int) $result['code'] ) {
 			switch ( $result['code'] ) {
 				case 201:
 					$error_message = esc_html__( 'Form was not submitted using POST method.', 'smaily-for-contact-form-7' );
+					break;
+				case 203:
+					$error_message = esc_html__( 'Invalid data submitted.', 'smaily-for-contact-form-7' );
 					break;
 				case 204:
 					$error_message = esc_html__( 'Input does not contain a valid email address.', 'smaily-for-contact-form-7' );

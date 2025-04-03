@@ -1,5 +1,11 @@
 # Changelog
 
+### 1.0.10
+
+- Fixes an issue where first select field was sent to Smaily instead of the user selected value
+- WordPress 6.7 compatibility
+- Contact Form 7 6.0 compatibility
+
 ### 1.0.9
 
 - WordPress 6.2 compatibility
