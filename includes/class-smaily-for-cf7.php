@@ -124,6 +124,9 @@ class Smaily_For_CF7 {
 
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 
+		$this->loader->add_action( 'admin_notices', $plugin_admin, 'smaily_admin_notices' );
+		$this->loader->add_filter( 'plugin_row_meta', $plugin_admin, 'add_plugin_row_deprecation_notice', 10, 4 );
+
 		$this->loader->add_action( 'wpcf7_after_save', $plugin_admin, 'save' );
 		$this->loader->add_action( 'wpcf7_editor_panels', $plugin_admin, 'add_tab', -1 );
 
@@ -132,6 +135,8 @@ class Smaily_For_CF7 {
 
 		$this->loader->add_action( 'wp_ajax_remove_credentials_callback', $plugin_admin, 'remove_credentials_callback' );
 		$this->loader->add_action( 'wp_ajax_nopriv_remove_credentials_callback', $plugin_admin, 'remove_credentials_callback' );
+
+		$this->loader->add_action( 'wp_ajax_smaily_for_cf7_dismiss_deprecation_notice', $plugin_admin, 'smaily_dismiss_deprecation_notice' );
 	}
 
 	/**

@@ -2,6 +2,16 @@
 
 Flexible and straightforward Smaily newsletter integration for Contact Form 7.
 
+## Deprecation notice!
+
+Smaily for Contact Form 7 is officially deprecated!
+
+Smaily for Contact Form 7 is no longer maintained, and no further updates or security patches will be provided.
+We have released a new plugin that combines WordPress, WooCommerce, Contact Form 7 and Elementor support into a single plugin.
+
+Please uninstall the current plugin and install the new one:
+[Smaily Connect](https://wordpress.org/plugins/smaily-connect/)
+
 ## Description
 
 Smaily email marketing and automation plugin for Contact Form 7.

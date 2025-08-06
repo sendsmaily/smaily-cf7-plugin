@@ -4,10 +4,20 @@ Tags: contact form 7, smaily, newsletter, email
 Requires PHP: 5.6
 Requires at least: 4.6
 Tested up to: 6.7
-Stable tag: 1.0.10
+Stable tag: 1.0.11
 License: GPLv3
 
 Flexible and straightforward Smaily newsletter integration for Contact Form 7.
+
+=== Deprecation Notice! ===
+
+Smaily for Contact Form 7 is officially deprecated!
+
+Smaily for Contact Form 7 is no longer maintained, and no further updates or security patches will be provided.
+We have released a new plugin that combines WordPress, WooCommerce, Contact Form 7 and Elementor support into a single plugin.
+
+Please uninstall the current plugin and install the new one:
+[Smaily Connect](https://wordpress.org/plugins/smaily-connect/)
 
 == Description ==
 
@@ -64,6 +74,13 @@ All development for Smaily for Contact Form 7 is [handled via GitHub](https://gi
 2. Example form included in plugin.
 
 == Changelog ==
+
+### 1.0.11
+
+- Deprecation notice!
+
+This plugin is no longer maintained. Please switch to the new Smaily Connect plugin.
+https://wordpress.org/plugins/smaily-connect/
 
 ### 1.0.10
 
