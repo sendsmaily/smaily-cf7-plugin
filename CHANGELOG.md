@@ -1,5 +1,9 @@
 # Changelog
 
+### 1.0.11
+
+- Deprecate the plugin and add a notice to use the new Smaily Connect plugin instead.
+
 ### 1.0.10
 
 - Fixes an issue where first select field was sent to Smaily instead of the user selected value

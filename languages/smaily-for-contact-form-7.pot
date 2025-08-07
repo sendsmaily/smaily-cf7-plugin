@@ -1,137 +1,124 @@
-# Copyright (C) 2020 Smaily
-# This file is distributed under the same license as the Smaily for Contact Form 7 plugin.
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Smaily for Contact Form 7\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/smaily-for-"
-"contact-form-7/POT-Creation-Date: 2020-06-10 18:59+0300\n"
-"POT-Creation-Date: 2023-03-24 12:32+0200\n"
-"PO-Revision-Date: 2025-08-07 07:43+0000\n"
-"Last-Translator: \n"
-"Language-Team: Eesti\n"
-"Language: et\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-08-07 06:09+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Loco https://localise.biz/\n"
-"X-Domain: smaily-for-contact-form-7\n"
-"X-Poedit-Basepath: ..\n"
-"X-Poedit-KeywordsList: __;esc_html__;_e;esc_html_e;_n\n"
-"X-Poedit-SearchPath-0: .\n"
-"X-Loco-Version: 2.8.0; wp-6.7.2; php-8.0.28"
+"X-Loco-Version: 2.8.0; wp-6.7.2; php-8.0.28\n"
+"X-Domain: smaily-for-contact-form-7"
 
 #. Description of the plugin
 msgid ""
 "[DEPRECATED] Smaily for Contact Form 7 is deprecated. Please use the new "
 "Smaily Connect plugin instead."
 msgstr ""
-"[AEGUNUD] Smaily Contact Form 7 plugin on ametlikult aegunud. Palun kasutage "
-"selle asemel uut Smaily Connect pluginat."
 
 #: admin/partials/smaily-for-cf7-admin-display.php:77
 msgid "API Password"
-msgstr "API Salasõna"
+msgstr ""
 
 #: admin/partials/smaily-for-cf7-admin-display.php:70
 msgid "API Username"
-msgstr "API Kasutajatunnus"
+msgstr ""
 
 #: admin/partials/smaily-for-cf7-admin-display.php:25
 msgid "Autoresponder"
-msgstr "Automaatvastaja"
+msgstr ""
 
 #: admin/partials/smaily-for-cf7-admin-display.php:51
 msgid "Captcha disabled. Please use a captcha if this is a public site."
-msgstr "Captcha keelatud. Palun kasuta Captchat kui see on avalik leht."
+msgstr ""
 
 #: admin/partials/smaily-for-cf7-admin-display.php:13
 msgid ""
 "Configuring Smaily integration is disabled when using \"Add New Form\". "
 "Please save this form or edit an already existing form"
 msgstr ""
-"\"Add New Form\" kasutamisel ei ole võimalik Smaily moodulit seadistada. "
-"Palun salvesta käesolev vorm või seadista eelnevalt loodud vormi"
 
 #: admin/partials/smaily-for-cf7-admin-display.php:48
 msgid "Connect form with Smaily"
-msgstr "Ühenda form Smaily'ga"
+msgstr ""
 
 #: smaily-for-contact-form-7.php:87
 msgid ""
 "Contact Form 7 is needed to function properly. Is Contact Form 7 installed "
 "and activated?"
 msgstr ""
-"Contact Form 7 pisikmoodul on vajalik Smaily mooduli toimimiseks. Kas "
-"Contact Form 7 moodul on paigaldatud ja aktiveeritud?"
 
 #: public/class-smaily-for-cf7-public.php:192
 msgid "Could not add to subscriber list for an unknown reason."
-msgstr "Ei suutnud lisada uudiskirja nimekirja teadmata põhjusel."
+msgstr ""
 
 #: admin/class-smaily-for-cf7-admin.php:423
 msgid "Credentials removed"
-msgstr "Kasutajatunnused eemaldatud"
+msgstr ""
 
 #: admin/class-smaily-for-cf7-admin.php:338
 msgid "Credentials valid"
-msgstr "Kasutajatunnused õiged"
+msgstr ""
 
 #: admin/class-smaily-for-cf7-admin.php:93
 msgid "DEPRECATION NOTICE"
-msgstr "TOETUSE LÕPETAMISE TEADE"
+msgstr ""
 
 #: admin/class-smaily-for-cf7-admin.php:344
 msgid "Error in subdomain"
-msgstr "Viga alamdomeenis"
+msgstr ""
 
 #: public/class-smaily-for-cf7-public.php:183
 msgid "Form was not submitted using POST method."
-msgstr "Andmeid peab saatma POST tegevusviisiga."
+msgstr ""
 
 #: admin/class-smaily-for-cf7-admin.php:107
 msgid "Get Smaily Connect"
-msgstr "Proovi Smaily Connect-i"
+msgstr ""
 
 #. URI of the plugin
 msgid "https://github.com/sendsmaily/smaily-cf7-plugin"
-msgstr "https://github.com/sendsmaily/smaily-cf7-plugin"
+msgstr ""
 
 #. Author URI of the plugin
 msgid "https://smaily.com/"
-msgstr "https://smaily.com/"
+msgstr ""
 
 #: public/class-smaily-for-cf7-public.php:189
 msgid "Input does not contain a valid email address."
-msgstr "Sisend ei sisalda tuntavat emaili aadressi."
+msgstr ""
 
 #: public/class-smaily-for-cf7-public.php:186
 msgid "Invalid data submitted."
-msgstr "Esitati vigased andmed"
+msgstr ""
 
 #: admin/class-smaily-for-cf7-admin.php:103
 msgid ""
 "Next steps: Deactivate and delete Smaily for Contact Form 7 → install Smaily "
 "Connect → reconnect your Smaily account."
 msgstr ""
-"Järgmised sammud: Deaktiveeri ja kustuta Smaily Contact Form 7 plugin → "
-"paigalda Smaily Connect → ühenda Smaily kontoga."
 
 #: admin/partials/smaily-for-cf7-admin-display.php:29
 msgid "No autoresponder"
-msgstr "Ilma automaatvastajata"
+msgstr ""
 
 #: admin/class-smaily-for-cf7-admin.php:426
 msgid "No credentials to remove"
-msgstr "Kasutajatunnuseid ei eksisteeri"
+msgstr ""
 
 #: admin/class-smaily-for-cf7-admin.php:331
 msgid "No response from Smaily"
-msgstr "Smaily'lt vastust ei saadud"
+msgstr ""
 
 #: admin/class-smaily-for-cf7-admin.php:390
 msgid "Please fill out all fields!"
-msgstr "Palun täida kõik väljad!"
+msgstr ""
 
 #: admin/class-smaily-for-cf7-admin.php:100
 msgid ""
@@ -139,70 +126,65 @@ msgid ""
 "combined plugin with support for WordPress, WooCommerce, Contact Form 7 and "
 "Elementor."
 msgstr ""
-"Palun deaktiveeri ja kustuta see plugin ning paigalda Smaily Connect – meie "
-"uus ühend-plugin, mis toetab WordPressi, WooCommerce’i, Contact Form 7 ja "
-"Elementorit."
 
 #: admin/partials/smaily-for-cf7-admin-display.php:44
 msgid "Reset credentials"
-msgstr "Lähtesta kasutajatunnused"
+msgstr ""
 
 #: admin/partials/smaily-for-cf7-admin-display.php:55
 msgid "Saved credentials invalid."
-msgstr "Salvestatud kasutajatunnused valed."
+msgstr ""
 
 #. Author of the plugin
 msgid "Smaily"
-msgstr "Smaily"
+msgstr ""
 
 #. Name of the plugin
 #: admin/class-smaily-for-cf7-admin.php:304
 msgid "Smaily for Contact Form 7"
-msgstr "Smaily for Contact Form 7"
+msgstr ""
 
 #: admin/class-smaily-for-cf7-admin.php:97
 msgid ""
 "Smaily for Contact Form 7 is officially deprecated and will no longer "
 "receive updates or security patches."
 msgstr ""
-"Smaily Contact Form 7 plugin on ametlikult aegunud. Seda ei hooldata enam "
-"ning uuendusi ega turvaparandusi ei pakuta."
 
 #: public/class-smaily-for-cf7-public.php:179
 #: public/class-smaily-for-cf7-public.php:195
 #: admin/class-smaily-for-cf7-admin.php:347
 msgid "Something went wrong"
-msgstr "Midagi läks valesti"
+msgstr ""
 
 #: admin/partials/smaily-for-cf7-admin-display.php:60
 msgid "Subdomain"
-msgstr "Alamdomeen"
+msgstr ""
 
 #: admin/class-smaily-for-cf7-admin.php:71
 msgid "Switch to Smaily Connect"
-msgstr "Uuenda Smaily Connect-ile"
+msgstr ""
 
 #: admin/class-smaily-for-cf7-admin.php:69
 msgid "This plugin is deprecated!"
-msgstr "See plugin on aegunud!"
+msgstr ""
 
 #: admin/partials/smaily-for-cf7-admin-display.php:90
 msgid "Verify credentials"
-msgstr "Valideeri kasutajatunnused"
+msgstr ""
 
 #: admin/class-smaily-for-cf7-admin.php:341
 msgid "Wrong credentials"
-msgstr "Valed kasutajatunnused"
+msgstr ""
 
 #: admin/class-smaily-for-cf7-admin.php:377
 #: admin/class-smaily-for-cf7-admin.php:417
 msgid "You do not have permission!"
-msgstr "Teil ei ole selle jaoks luba!"
+msgstr ""
 
 #: admin/partials/smaily-for-cf7-admin-display.php:22
 msgid "Your API credentials are valid"
-msgstr "Sinu kasutajatunnused on õiged"
+msgstr ""
 
 #: admin/class-smaily-for-cf7-admin.php:373
 msgid "Your nonce did not verify!"
-msgstr "Sinu nonce ei ole kinnitatav!"
+msgstr ""

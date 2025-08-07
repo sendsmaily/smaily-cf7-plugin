@@ -14,13 +14,13 @@
  * @wordpress-plugin
  * Plugin Name: Smaily for Contact Form 7
  * Plugin URI: https://github.com/sendsmaily/smaily-cf7-plugin
- * Description: Integrate Contact Form 7 form(s) with Smaily to add subscribers directly to Smaily and trigger marketing automations.
- * Version: 1.0.10
+ * Description: [DEPRECATED] Smaily for Contact Form 7 is deprecated. Please use the new Smaily Connect plugin instead.
+ * Version: 1.0.11
  * License: GPL3
  * Author: Smaily
  * Author URI: https://smaily.com/
  * Text Domain: smaily-for-contact-form-7
- * Domain Path: languages
+ * Domain Path: /languages
  *
  * Smaily for Contact Form 7 is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -42,7 +42,22 @@ defined( 'ABSPATH' ) || die( "This is a plugin you can't access directly" );
 // Required to use functions is_plugin_active and deactivate_plugins.
 require_once ABSPATH . 'wp-admin/includes/plugin.php';
 
-define( 'SMAILY_FOR_CF7_VERSION', '1.0.10' );
+define( 'SMAILY_FOR_CF7_VERSION', '1.0.11' );
+define( 'SMAILY_FOR_CF7_PLUGIN_FILE', __FILE__ );
+define( 'SMAILY_FOR_CF7_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
+
+register_deactivation_hook( __FILE__, 'smaily_for_cf7_deactivate' );
+/**
+ * Deactivation function for the plugin.
+ *
+ * This function is called when the plugin is deactivated.
+ *
+ * @since 1.0.11
+ */
+function smaily_for_cf7_deactivate() {
+	// Show a deprecation notice on subsequent activations.
+	delete_metadata( 'user', 0, 'smaily_for_cf7_deprecation_notice_dismissed', '', true );
+}
 
 /**
  * The core plugin class that is used to define
@@ -56,7 +71,7 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-smaily-for-cf7.php';
  * @since 1.0.2
  */
 function smaily_for_cf7_load_textdomain() {
-	load_plugin_textdomain( 'smaily-for-contact-form-7', false, plugin_dir_path( __FILE__ ) . '/languages/' );
+	load_plugin_textdomain( 'smaily-for-contact-form-7', false, plugin_basename( SMAILY_FOR_CF7_PLUGIN_PATH ) . '/languages/' );
 }
 add_action( 'plugins_loaded', 'smaily_for_cf7_load_textdomain' );
 
